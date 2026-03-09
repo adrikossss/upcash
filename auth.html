@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor | Secure Access</title>
+    <title>Investor Pro | Secure Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -16,8 +16,12 @@
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .input-group focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
         .hidden { display: none; }
     </style>
@@ -25,15 +29,146 @@
 <body class="text-slate-200 p-6">
 
     <div class="w-full max-w-md">
-        <div class="flex flex-col items-center mb-8">
-            <div class="bg-blue-600 p-3 rounded-2xl mb-3 shadow-lg shadow-blue-500/20">
+        <div class="text-center mb-10">
+            <div class="inline-flex bg-blue-600 p-3 rounded-2xl mb-4 shadow-xl shadow-blue-500/20">
                 <i data-lucide="shield-check" class="text-white w-8 h-8"></i>
             </div>
-            <h1 class="text-2xl font-bold tracking-tight">INVESTOR<span class="text-blue-500">PRO</span></h1>
-            <p class="text-slate-400 text-sm">Secure Institutional Access</p>
+            <h1 class="text-3xl font-black tracking-tighter">INVESTOR<span class="text-blue-500">PRO</span></h1>
+            <p class="text-slate-400 text-sm mt-2">Institutional-Grade Wealth Management</p>
         </div>
 
-        <div class="glass-card rounded-3xl p-8 shadow-2xl">
+        <div class="glass-card rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute -top-24 -left-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+            <div id="login-section">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold">Welcome Back</h2>
+                    <p class="text-slate-400 text-sm">Please enter your credentials</p>
+                </div>
+
+                <form onsubmit="handleLogin(event)" class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Email Address</label>
+                        <div class="relative group">
+                            <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-blue-400 transition-colors"></i>
+                            <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:border-blue-500 transition-all" placeholder="name@email.com">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center ml-1">
+                            <label class="text-xs font-bold text-slate-500 uppercase">Password</label>
+                            <a href="#" class="text-xs text-blue-400 hover:underline">Forgot?</a>
+                        </div>
+                        <div class="relative group">
+                            <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-blue-400 transition-colors"></i>
+                            <input type="password" id="login-pass" required class="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-12 py-4 focus:outline-none focus:border-blue-500 transition-all" placeholder="••••••••">
+                            <button type="button" onclick="togglePass('login-pass')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
+                                <i data-lucide="eye" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="login-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                        <span>Sign In</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </form>
+
+                <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                    <p class="text-sm text-slate-400">
+                        New to Investor Pro? 
+                        <button onclick="switchTab('signup')" class="text-blue-400 font-bold hover:text-blue-300 transition-colors">Create Account</button>
+                    </p>
+                </div>
+            </div>
+
+            <div id="signup-section" class="hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold">Create Account</h2>
+                    <p class="text-slate-400 text-sm">Join thousands of smart investors</p>
+                </div>
+
+                <form onsubmit="handleSignup(event)" class="space-y-5">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Full Name</label>
+                        <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500" placeholder="John Doe">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
+                        <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500" placeholder="john@example.com">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Password</label>
+                        <input type="password" id="reg-pass" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500" placeholder="••••••••">
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 rounded-2xl shadow-xl">
+                        Start Investing Now
+                    </button>
+                </form>
+
+                <div class="mt-8 pt-6 border-t border-white/5 text-center">
+                    <p class="text-sm text-slate-400">
+                        Already a member? 
+                        <button onclick="switchTab('login')" class="text-blue-400 font-bold hover:text-blue-300">Sign In</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <p class="text-center text-[10px] text-slate-500 mt-8 uppercase tracking-[0.2em]">
+            &copy; 2026 Investor Pro Global • Secured by 256-bit Encryption
+        </p>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Switch between Login and Signup
+        function switchTab(type) {
+            const login = document.getElementById('login-section');
+            const signup = document.getElementById('signup-section');
+            
+            if(type === 'signup') {
+                login.classList.add('hidden');
+                signup.classList.remove('hidden');
+            } else {
+                signup.classList.add('hidden');
+                login.classList.remove('hidden');
+            }
+        }
+
+        // Toggle Password Visibility
+        function togglePass(id) {
+            const input = document.getElementById(id);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        // Handle Login Submission
+        function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            
+            // Show Loading State
+            btn.innerHTML = `<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>`;
+            btn.style.opacity = "0.7";
+
+            // Simulate Network Delay
+            setTimeout(() => {
+                window.location.href = "index.html"; // Redirect to your dashboard
+            }, 1500);
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            alert("Account created successfully! Please log in.");
+            switchTab('login');
+        }
+    </script>
+</body>
+</html>
             
             <div id="login-form">
                 <h2 class="text-xl font-bold mb-6">Welcome Back</h2>
