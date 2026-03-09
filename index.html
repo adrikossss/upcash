@@ -194,62 +194,58 @@
     </main>
 
     <script>
-        // Initialize Icons
-        lucide.createIcons();
+         // 1. Initialize Supabase
+const supabaseUrl = 'https://wbodpfbmilhperccgzei.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA';
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // 1. Initialize Supabase
-const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA');
-
-// 2. Fetch and Sync Data
+// 2. Main Sync Function
 async function loadDashboard() {
-    // Check if user is logged in
+    // Initialize Icons
+    lucide.createIcons();
+
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {
-        window.location.href = "auth.html"; // Redirect if not logged in
+        window.location.href = "auth.html";
         return;
     }
 
-    // Fetch user-specific data from your table
+    // Fetch data using your exact snake_case column names
     const { data, error } = await supabase
         .from('UserdataTab')
-        .select('username, available_balance, total_investment, total_withdrawn')
+        .select('username, Available_balance, Total_investment, Total_withdrawn')
         .eq('user_id', user.id)
         .single();
 
     if (error) {
-        console.error("Error fetching data:", error);
+        console.error("Sync Error:", error.message);
         return;
     }
 
-    // 3. Update the UI with fetched data
+    // 3. Update UI
     if (data) {
-        document.getElementById('username').innerText = data.username;
-        document.getElementById('balance').innerText = data.balance.toLocaleString();
-        document.getElementById('totalInv').innerText = "UGX " + data.total_investment.toLocaleString();
-        document.getElementById('totalWith').innerText = "UGX " + data.total_withdrawn.toLocaleString();
+        document.getElementById('username').innerText = data.username || "User";
+        document.getElementById('balance').innerText = Number(data.Available_balance).toLocaleString();
+        document.getElementById('totalInv').innerText = "UGX " + Number(data.Total_investment).toLocaleString();
+        document.getElementById('totalWith').innerText = "UGX " + Number(data.Total_withdrawn).toLocaleString();
     }
+}
+
+// 4. Helper Functions
+function copyLink() {
+    alert("Referral link functionality coming soon!");
+}
+
+function handleLogout() {
+    supabase.auth.signOut().then(() => {
+        window.location.href = "auth.html";
+    });
 }
 
 // Run on page load
 loadDashboard();
-
-
-        // Function to apply database data to UI
-        function loadDashboard() {
-            document.getElementById('username').innerText = dashboardData.username;
-            document.getElementById('balance').innerText = dashboardData.balance;
-            document.getElementById('totalInv').innerText = "UGX " + dashboardData.totalInvestment;
-            document.getElementById('totalWith').innerText = "UGX " + dashboardData.totalWithdrawn;
-        }
-
-        function copyLink() {
-            navigator.clipboard.writeText(dashboardData.referralLink);
-            alert("Referral link copied to clipboard!");
-        }
-
-        // Initialize dashboard
-        loadDashboard();
+        
     </script>
 </body>
 </html>
