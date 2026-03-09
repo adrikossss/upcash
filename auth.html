@@ -70,14 +70,37 @@
         lucide.createIcons();
         let isLogin = true;
 
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            document.getElementById('phoneGroup').classList.toggle('hidden', isLogin);
-            document.getElementById('usernameGroup').classList.toggle('hidden', isLogin);
+         // INSERT YOUR KEYS HERE
+    const supabase = supabase.createClient('https://your-project-id.supabase.co', 'your-anon-key');
+
+    function toggleMode() {
+        isLogin = !isLogin;
+        document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+        document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
+        document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
+        document.getElementById('phoneGroup').classList.toggle('hidden', isLogin);
+        document.getElementById('usernameGroup').classList.toggle('hidden', isLogin);
+    }
+
+    document.getElementById('authForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const phone = document.getElementById('phone').value;
+        const username = document.getElementById('username').value;
+
+        if (isLogin) {
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) { alert(error.message); } else { window.location.href = "index.html"; }
+        } else {
+            const { error } = await supabase.auth.signUp({ 
+                email: email, 
+                password: password,
+                options: { data: { phone_number: phone, username: username } } 
+            });
+            if (error) { alert(error.message); } else { alert("Check your email!"); }
         }
+    });
     </script>
 </body>
 </html>
