@@ -20,7 +20,25 @@
             background: linear-gradient(90deg, #60a5fa, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
+        }/* ... existing CSS ... */
+
+    .gradient-text {
+        background: linear-gradient(90deg, #60a5fa, #a855f7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* PASTE HERE */
+    .pulse-green {
+        animation: pulse-animation 2s infinite;
+        border-radius: 9999px; /* Ensures the glow follows the pill shape */
+    }
+
+    @keyframes pulse-animation {
+        0% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+        100% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0); }
+    }
     </style>
 </head>
 <body class="text-slate-200 font-sans pb-20">
