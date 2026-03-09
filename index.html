@@ -197,15 +197,43 @@
         // Initialize Icons
         lucide.createIcons();
 
-        // 💡 DATA MANAGER SECTION
-        // When you connect to Supabase, you update this object
-        const dashboardData = {
-            username: "@Investor_King",
-            balance: "850,000",
-            totalInvestment: "2,500,000",
-            totalWithdrawn: "120,000",
-            referralLink: "https://investorpro.com/ref/king123"
-        };
+        // 1. Initialize Supabase
+const supabase = supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+
+// 2. Fetch and Sync Data
+async function loadDashboard() {
+    // Check if user is logged in
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+        window.location.href = "auth.html"; // Redirect if not logged in
+        return;
+    }
+
+    // Fetch user-specific data from your table
+    const { data, error } = await supabase
+        .from('UserdataTab')
+        .select('username, balance, total_investment, total_withdrawn')
+        .eq('user_id', user.id)
+        .single();
+
+    if (error) {
+        console.error("Error fetching data:", error);
+        return;
+    }
+
+    // 3. Update the UI with fetched data
+    if (data) {
+        document.getElementById('username').innerText = data.username;
+        document.getElementById('balance').innerText = data.balance.toLocaleString();
+        document.getElementById('totalInv').innerText = "UGX " + data.total_investment.toLocaleString();
+        document.getElementById('totalWith').innerText = "UGX " + data.total_withdrawn.toLocaleString();
+    }
+}
+
+// Run on page load
+loadDashboard();
+
 
         // Function to apply database data to UI
         function loadDashboard() {
