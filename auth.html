@@ -3,233 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor Pro | Secure Login</title>
+    <title>InvestorPRO | Secure Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            background: radial-gradient(circle at top left, #1e293b, #0f172a);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .input-group focus-within {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-        }
-        .hidden { display: none; }
+        body { background: radial-gradient(circle at top right, #0f172a, #1e1b4b); min-height: 100vh; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
-<body class="text-slate-200 p-6">
+<body class="p-4 flex flex-col items-center">
 
-    <div class="w-full max-w-md">
-        <div class="text-center mb-10">
-            <div class="inline-flex bg-blue-600 p-3 rounded-2xl mb-4 shadow-xl shadow-blue-500/20">
-                <i data-lucide="shield-check" class="text-white w-8 h-8"></i>
+    <header class="w-full max-w-md flex items-center justify-between py-8">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <i data-lucide="trending-up" class="text-white w-5 h-5"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tighter">INVESTOR<span class="text-blue-500">PRO</span></h1>
-            <p class="text-slate-400 text-sm mt-2">Institutional-Grade Wealth Management</p>
+            <h1 class="text-xl font-bold tracking-tight text-white">INVESTOR<span class="text-blue-500">PRO</span></h1>
+        </div>
+        <div class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">Verified</div>
+    </header>
+
+    <div class="glass-card p-8 rounded-3xl w-full max-w-md shadow-2xl fade-in">
+        <div class="text-center mb-8">
+            <h2 id="title" class="text-2xl font-bold text-white">Welcome Back</h2>
+            <p class="text-slate-400 text-sm">Professional investment management</p>
         </div>
 
-        <div class="glass-card rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-24 -left-24 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl"></div>
-
-            <div id="login-section">
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold">Welcome Back</h2>
-                    <p class="text-slate-400 text-sm">Please enter your credentials</p>
-                </div>
-
-                <form onsubmit="handleLogin(event)" class="space-y-5">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Email Address</label>
-                        <div class="relative group">
-                            <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-blue-400 transition-colors"></i>
-                            <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 focus:outline-none focus:border-blue-500 transition-all" placeholder="name@email.com">
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center ml-1">
-                            <label class="text-xs font-bold text-slate-500 uppercase">Password</label>
-                            <a href="#" class="text-xs text-blue-400 hover:underline">Forgot?</a>
-                        </div>
-                        <div class="relative group">
-                            <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-blue-400 transition-colors"></i>
-                            <input type="password" id="login-pass" required class="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-12 py-4 focus:outline-none focus:border-blue-500 transition-all" placeholder="••••••••">
-                            <button type="button" onclick="togglePass('login-pass')" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white">
-                                <i data-lucide="eye" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button type="submit" id="login-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
-                        <span>Sign In</span>
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </button>
-                </form>
-
-                <div class="mt-8 pt-6 border-t border-white/5 text-center">
-                    <p class="text-sm text-slate-400">
-                        New to Investor Pro? 
-                        <button onclick="switchTab('signup')" class="text-blue-400 font-bold hover:text-blue-300 transition-colors">Create Account</button>
-                    </p>
-                </div>
+        <form id="authForm" class="space-y-4">
+            <div id="usernameGroup" class="relative hidden">
+                <i data-lucide="user" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
+                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
 
-            <div id="signup-section" class="hidden">
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold">Create Account</h2>
-                    <p class="text-slate-400 text-sm">Join thousands of smart investors</p>
-                </div>
-
-                <form onsubmit="handleSignup(event)" class="space-y-5">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Full Name</label>
-                        <input type="text" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500" placeholder="John Doe">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Email</label>
-                        <input type="email" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500" placeholder="john@example.com">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-500 uppercase ml-1">Password</label>
-                        <input type="password" id="reg-pass" required class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500" placeholder="••••••••">
-                    </div>
-
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 rounded-2xl shadow-xl">
-                        Start Investing Now
-                    </button>
-                </form>
-
-                <div class="mt-8 pt-6 border-t border-white/5 text-center">
-                    <p class="text-sm text-slate-400">
-                        Already a member? 
-                        <button onclick="switchTab('login')" class="text-blue-400 font-bold hover:text-blue-300">Sign In</button>
-                    </p>
-                </div>
+            <div class="relative">
+                <i data-lucide="mail" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
+                <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
+
+            <div id="phoneGroup" class="relative hidden">
+                <div class="absolute left-3 top-3.5 flex items-center gap-2 border-r border-slate-700 pr-2">
+                    <span class="text-lg">🇺🇬</span> <span class="text-slate-300 font-medium">+256</span>
+                </div>
+                <input type="tel" id="phone" placeholder="7XX XXX XXX" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-20 rounded-xl text-white outline-none focus:border-blue-500">
+            </div>
+            
+            <div class="relative">
+                <i data-lucide="lock" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
+                <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
+            </div>
+
+            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-xl font-bold hover:opacity-90 transition active:scale-95 text-white">
+                Sign In
+            </button>
+        </form>
+
+        <div class="mt-6 flex justify-between text-xs text-slate-400">
+            <button onclick="toggleMode()" id="toggleBtn" class="hover:text-white transition">Create an account</button>
+            <button class="hover:text-white transition">Forgot Password?</button>
         </div>
-        
-        <p class="text-center text-[10px] text-slate-500 mt-8 uppercase tracking-[0.2em]">
-            &copy; 2026 Investor Pro Global • Secured by 256-bit Encryption
-        </p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
+        let isLogin = true;
 
-        // Switch between Login and Signup
-        function switchTab(type) {
-            const login = document.getElementById('login-section');
-            const signup = document.getElementById('signup-section');
-            
-            if(type === 'signup') {
-                login.classList.add('hidden');
-                signup.classList.remove('hidden');
-            } else {
-                signup.classList.add('hidden');
-                login.classList.remove('hidden');
-            }
-        }
-
-        // Toggle Password Visibility
-        function togglePass(id) {
-            const input = document.getElementById(id);
-            input.type = input.type === 'password' ? 'text' : 'password';
-        }
-
-        // Handle Login Submission
-        function handleLogin(e) {
-            e.preventDefault();
-            const btn = document.getElementById('login-btn');
-            
-            // Show Loading State
-            btn.innerHTML = `<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>`;
-            btn.style.opacity = "0.7";
-
-            // Simulate Network Delay
-            setTimeout(() => {
-                window.location.href = "index.html"; // Redirect to your dashboard
-            }, 1500);
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-            alert("Account created successfully! Please log in.");
-            switchTab('login');
+        function toggleMode() {
+            isLogin = !isLogin;
+            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
+            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
+            document.getElementById('phoneGroup').classList.toggle('hidden', isLogin);
+            document.getElementById('usernameGroup').classList.toggle('hidden', isLogin);
         }
     </script>
 </body>
 </html>
-            
-            <div id="login-form">
-                <h2 class="text-xl font-bold mb-6">Welcome Back</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Email Address</label>
-                        <input type="email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition" placeholder="name@example.com">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Password</label>
-                        <input type="password" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition" placeholder="••••••••">
-                    </div>
-                    <button class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition active:scale-95 shadow-lg shadow-blue-600/20">
-                        Sign In
-                    </button>
-                </div>
-                <p class="mt-6 text-center text-sm text-slate-400">
-                    Don't have an account? 
-                    <button onclick="toggleAuth()" class="text-blue-400 font-bold hover:underline">Sign Up</button>
-                </p>
-            </div>
-
-            <div id="signup-form" class="hidden">
-                <h2 class="text-xl font-bold mb-6">Create Account</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Full Name</label>
-                        <input type="text" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition" placeholder="John Doe">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Email Address</label>
-                        <input type="email" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition" placeholder="name@example.com">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Password</label>
-                        <input type="password" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition" placeholder="••••••••">
-                    </div>
-                    <button class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-xl transition active:scale-95 shadow-lg">
-                        Create Account
-                    </button>
-                </div>
-                <p class="mt-6 text-center text-sm text-slate-400">
-                    Already registered? 
-                    <button onclick="toggleAuth()" class="text-blue-400 font-bold hover:underline">Log In</button>
-                </p>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        lucide.createIcons();
-
-        function toggleAuth() {
-            const login = document.getElementById('login-form');
-            const signup = document.getElementById('signup-form');
-            
-            login.classList.toggle('hidden');
-            signup.classList.toggle('hidden');
-        }
-    </script>
-</body>
-              </html>
-              
