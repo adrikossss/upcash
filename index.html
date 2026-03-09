@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Dashboard</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+            --text-white: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 12px; 
+            border: 1px solid #334155;
+        }
+
+        .amount-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+
+        .gradient-btn {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        footer { margin-top: 40px; padding: 20px; border-top: 1px solid #334155; text-align: center; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div><h3>Welcome, John Doe</h3></div>
+        <div>[User Photo Icon]</div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="card">
+            <p>Balance (UGX)</p>
+            <div class="amount-display">500,000</div>
+        </div>
+        <div class="card">
+            <p>Total Withdrawn (UGX)</p>
+            <div class="amount-display">150,000</div>
+        </div>
+        <div class="card">
+            <p>Total Invested (UGX)</p>
+            <div class="amount-display">2,000,000</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="#" class="gradient-btn">View Investment Plans</a>
+        <a href="#" class="gradient-btn">Show Affiliates</a>
+        <a href="#" class="gradient-btn">Copy Referral Link</a>
+        <a href="#" class="gradient-btn">Join WhatsApp Community</a>
+    </div>
+
+    <footer>
+        <p>Admin Support: contact@yourplatform.com | +256 700 000 000</p>
+    </footer>
+
+</body>
+</html>
