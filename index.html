@@ -198,7 +198,7 @@
         lucide.createIcons();
 
         // 1. Initialize Supabase
-const supabase = supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA');
 
 // 2. Fetch and Sync Data
 async function loadDashboard() {
@@ -213,7 +213,7 @@ async function loadDashboard() {
     // Fetch user-specific data from your table
     const { data, error } = await supabase
         .from('UserdataTab')
-        .select('username, balance, total_investment, total_withdrawn')
+        .select('username, available_balance, total_investment, total_withdrawn')
         .eq('user_id', user.id)
         .single();
 
