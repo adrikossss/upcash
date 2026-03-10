@@ -58,14 +58,24 @@
 
     // Toggle Action
     toggleBtn.addEventListener('click', () => {
-        isLogin = !isLogin;
-        formTitle.innerText = isLogin ? "Welcome Back" : "Create Account";
-        mainBtn.innerText = isLogin ? "Sign In" : "Register Now";
-        toggleBtn.innerText = isLogin ? "Create an account" : "Have an account? Login";
-        
-        // This ensures the fields are either added or removed from the DOM layout
-        signupFields.classList.toggle('is-hidden');
-    });
+    isLogin = !isLogin;
+    
+    // 1. Update UI Text
+    formTitle.innerText = isLogin ? "Welcome Back" : "Create Account";
+    mainBtn.innerText = isLogin ? "Sign In" : "Register Now";
+    toggleBtn.innerText = isLogin ? "Create an account" : "Have an account? Login";
+    
+    // 2. FORCED OVERRIDE: Directly set the CSS style
+    // This ignores all classes and forces the element to show or hide
+    if (isLogin) {
+        signupFields.style.setProperty('display', 'none', 'important');
+    } else {
+        signupFields.style.setProperty('display', 'block', 'important');
+    }
+    
+    console.log("Forced toggle executed.");
+});
+
 </script>
 </body>
 </html>
