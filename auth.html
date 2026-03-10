@@ -3,37 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Access</title>
+    <title>InvestorPRO | Secure Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        /* This class ensures the hidden fields are completely removed from the layout flow */
-        .hidden-section { display: none !important; }
+        body { 
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 1rem;
+        }
+        .glass { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 1.5rem; 
+        }
+        /* This class is the key to preventing overlap */
+        .is-hidden { display: none !important; }
     </style>
 </head>
-<body class="flex items-center justify-center p-4">
+<body>
 
-    <div class="glass p-8 rounded-3xl w-full max-w-sm shadow-2xl">
-        <div class="flex items-center justify-center gap-2 mb-6">
+    <div class="glass p-8 w-full max-w-sm shadow-2xl">
+        <div class="flex items-center justify-center gap-2 mb-8">
             <div class="bg-blue-600 p-2 rounded-lg">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
             </div>
-            <h1 class="text-xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
+            <h1 class="text-2xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
         </div>
 
-        <h2 id="title" class="text-2xl font-bold text-white text-center mb-6">Welcome Back</h2>
+        <h2 id="title" class="text-xl font-semibold text-white text-center mb-6">Welcome Back</h2>
 
         <form id="authForm" class="space-y-4">
-            <div id="signupFields" class="hidden-section space-y-4">
-                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none">
-                <div class="flex items-center bg-slate-900/50 rounded-xl border border-white/10 overflow-hidden">
+            <div id="signupFields" class="is-hidden space-y-4">
+                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
+                <div class="relative flex items-center bg-slate-900/50 rounded-xl border border-white/10">
                     <span class="pl-4 text-slate-400 font-medium border-r border-slate-700 pr-2">🇺🇬 +256</span>
                     <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full bg-transparent p-3 outline-none text-white">
                 </div>
             </div>
 
-            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none">
+            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
+            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
+
+            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 py-3 rounded-xl font-bold text-white transition hover:opacity-90">Sign In</button>
+        </form>
+
+        <div class="mt-6 text-center space-y-3">
+            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
+            <div><a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a></div>
+        </div>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggleMode() {
+            isLogin = !isLogin;
+            
+            // Toggle Text
+            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
+            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
+            
+            // Toggle Fields
+            const fields = document.getElementById('signupFields');
+            if (isLogin) {
+                fields.classList.add('is-hidden');
+            } else {
+                fields.classList.remove('is-hidden');
+            }
+        }
+    </script>
+</body>
+</html>
             <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none">
 
             <button type="submit" id="mainBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-white hover:bg-blue-700 transition">Sign In</button>
