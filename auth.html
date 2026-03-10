@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Access</title>
+    <title>InvestorPRO | Secure Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
@@ -12,342 +12,77 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            margin: 0;
             padding: 20px;
         }
-        .login-card { 
+        .auth-card { 
             background: #0f172a; 
             border: 1px solid #334155; 
             width: 100%; 
             max-width: 400px; 
             padding: 2rem; 
             border-radius: 2rem; 
-            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        /* This hides elements and removes them from layout flow */
-        .force-hide { display: none !important; }
+        .hidden-element { display: none; }
     </style>
 </head>
 <body>
 
-<div class="login-card">
-    <div class="flex items-center justify-center gap-2 mb-6">
+<div class="auth-card shadow-2xl">
+    <div class="flex items-center justify-center gap-2 mb-8">
         <div class="bg-blue-600 p-2 rounded-lg">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
         </div>
         <h1 class="text-xl font-bold text-white">INVESTOR<span class="text-blue-500">PRO</span></h1>
     </div>
 
-    <h2 id="title" class="text-white text-2xl font-bold mb-6">Welcome Back</h2>
+    <h2 id="formTitle" class="text-white text-2xl font-bold text-center mb-6">Welcome Back</h2>
 
     <form id="authForm" class="space-y-4">
-        <div id="signupFields" class="force-hide space-y-4">
-            <input type="text" placeholder="Username" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
+        <div id="extraFields" class="hidden-element space-y-4">
+            <input type="text" placeholder="Username" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-blue-500">
             <div class="flex items-center bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
-                <span class="px-4 py-3 text-white border-r border-slate-700">🇺🇬 +256</span>
-                <input type="tel" placeholder="7XXXXXXXX" class="w-full p-3 bg-transparent text-white outline-none">
+                <span class="px-4 py-4 text-slate-400 border-r border-slate-700">🇺🇬 +256</span>
+                <input type="tel" placeholder="7XXXXXXXX" class="w-full p-4 bg-transparent text-white outline-none">
             </div>
         </div>
 
-        <input type="email" placeholder="Email Address" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
-        <input type="password" placeholder="Password" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
+        <input type="email" placeholder="Email Address" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-blue-500">
+        <input type="password" placeholder="Password" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-blue-500">
         
-        <button id="mainBtn" class="w-full py-3 rounded-xl bg-blue-600 text-white font-bold">Sign In</button>
+        <button id="mainBtn" class="w-full py-4 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition">Sign In</button>
     </form>
 
-    <div class="mt-6">
-        <button id="toggleBtn" class="text-sm text-blue-400">Create an account</button>
+    <div class="mt-6 text-center">
+        <button id="toggleBtn" class="text-sm text-blue-400 hover:text-white transition">Create an account</button>
         <p class="mt-4 text-xs text-slate-500">Forgot Password?</p>
     </div>
 </div>
 
 <script>
     const toggleBtn = document.getElementById('toggleBtn');
-    const title = document.getElementById('title');
-    const mainBtn = document.getElementById('mainBtn');
-    const signupFields = document.getElementById('signupFields');
-    let isLogin = true;
-
-    toggleBtn.addEventListener('click', () => {
-        isLogin = !isLogin;
-        if (isLogin) {
-            title.innerText = "Welcome Back";
-            mainBtn.innerText = "Sign In";
-            toggleBtn.innerText = "Create an account";
-            signupFields.classList.add('force-hide');
-        } else {
-            title.innerText = "Create Account";
-            mainBtn.innerText = "Register Now";
-            toggleBtn.innerText = "Have an account? Login";
-            signupFields.classList.remove('force-hide');
-        }
-    });
-</script>
-</body>
-</html>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-            </svg>
-        </div>
-        <h1 class="text-2xl font-bold text-white tracking-widest">INVESTOR<span class="text-blue-500">PRO</span></h1>
-    </div>
-
-    <h2 id="formTitle" class="text-white text-xl font-semibold text-center mb-6">Welcome Back</h2>
-    
-    <form id="authForm" class="space-y-4">
-        <div id="signupFields" class="hidden-fields space-y-4">
-            <input type="text" placeholder="Username" class="w-full p-3 rounded-xl bg-slate-900/50 text-white border border-slate-700 outline-none focus:border-blue-500">
-            <div class="flex items-center bg-slate-900/50 rounded-xl border border-slate-700 overflow-hidden">
-                <span class="px-4 text-white font-medium border-r border-slate-700">🇺🇬 +256</span>
-                <input type="tel" placeholder="7XX XXX XXX" class="w-full p-3 bg-transparent text-white outline-none">
-            </div>
-        </div>
-
-        <input type="email" placeholder="Email Address" class="w-full p-3 rounded-xl bg-slate-900/50 text-white border border-slate-700 outline-none focus:border-blue-500">
-        <input type="password" placeholder="Password" class="w-full p-3 rounded-xl bg-slate-900/50 text-white border border-slate-700 outline-none focus:border-blue-500">
-
-        <button id="submitBtn" class="w-full py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition">Sign In</button>
-    </form>
-
-    <div class="mt-6 text-center space-y-3">
-        <button id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
-        <a href="#" class="block text-xs text-slate-500 hover:text-blue-400 transition">Forgot Password?</a>
-    </div>
-</div>
-
-<script>
-    const toggleBtn = document.getElementById('toggleBtn');
     const formTitle = document.getElementById('formTitle');
-    const submitBtn = document.getElementById('submitBtn');
-    const signupFields = document.getElementById('signupFields');
-
+    const mainBtn = document.getElementById('mainBtn');
+    const extraFields = document.getElementById('extraFields');
+    
     let isLogin = true;
 
     toggleBtn.addEventListener('click', () => {
         isLogin = !isLogin;
         
-        if (isLogin) {
-            formTitle.innerText = "Welcome Back";
-            submitBtn.innerText = "Sign In";
-            toggleBtn.innerText = "Create an account";
-            signupFields.style.display = 'none';
+        // Morph text
+        formTitle.innerText = isLogin ? "Welcome Back" : "Create Account";
+        mainBtn.innerText = isLogin ? "Sign In" : "Register Now";
+        toggleBtn.innerText = isLogin ? "Create an account" : "Have an account? Login";
+        
+        // Toggle view
+        if(isLogin) {
+            extraFields.classList.add('hidden-element');
         } else {
-            formTitle.innerText = "Create Account";
-            submitBtn.innerText = "Register Now";
-            toggleBtn.innerText = "Have an account? Login";
-            signupFields.style.display = 'block';
+            extraFields.classList.remove('hidden-element');
         }
     });
 </script>
 </body>
-</html>
-        <h2 id="title" class="text-xl font-semibold text-white text-center mb-6">Welcome Back</h2>
-
-        <form id="authForm" class="space-y-4">
-            <div id="signupFields" class="is-hidden space-y-4">
-                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-                <div class="relative flex items-center bg-slate-900/50 rounded-xl border border-white/10">
-                    <span class="pl-4 text-slate-400 font-medium border-r border-slate-700 pr-2">🇺🇬 +256</span>
-                    <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full bg-transparent p-3 outline-none text-white">
-                </div>
-            </div>
-
-            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-
-            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 py-3 rounded-xl font-bold text-white transition hover:opacity-90">Sign In</button>
-        </form>
-
-        <div class="mt-6 text-center space-y-3">
-            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
-            <div><a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a></div>
-        </div>
-    </div>
-
-    <script>
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            
-            // Toggle Text
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            
-            // Toggle Fields
-            const fields = document.getElementById('signupFields');
-            if (isLogin) {
-                fields.classList.add('is-hidden');
-            } else {
-                fields.classList.remove('is-hidden');
-            }
-        }
-    </script>
-</body>
-</html>
-            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none">
-
-            <button type="submit" id="mainBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-white hover:bg-blue-700 transition">Sign In</button>
-        </form>
-
-        <div class="mt-6 text-center space-y-3">
-            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
-            <div><a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a></div>
-        </div>
-    </div>
-
-    <script>
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            const signupFields = document.getElementById('signupFields');
-            
-            // Toggle visibility
-            if (isLogin) {
-                signupFields.classList.add('hidden-section');
-                document.getElementById('title').innerText = "Welcome Back";
-                document.getElementById('mainBtn').innerText = "Sign In";
-                document.getElementById('toggleBtn').innerText = "Create an account";
-            } else {
-                signupFields.classList.remove('hidden-section');
-                document.getElementById('title').innerText = "Create Account";
-                document.getElementById('mainBtn').innerText = "Register Now";
-                document.getElementById('toggleBtn').innerText = "Have an account? Login";
-            }
-        }
-    </script>
-</body>
-</html>
-        <h2 id="title" class="text-xl font-semibold text-white text-center mb-6">Welcome Back</h2>
-
-        <form id="authForm" class="space-y-4">
-            <div id="signupFields" class="hidden-mode space-y-4">
-                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-                
-                <div class="relative flex items-center bg-slate-900/50 rounded-xl border border-white/10">
-                    <span class="pl-4 text-slate-400 font-medium border-r border-slate-700 pr-2">🇺🇬 +256</span>
-                    <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full bg-transparent p-3 outline-none text-white">
-                </div>
-            </div>
-
-            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-
-            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 py-3 rounded-xl font-bold text-white transition hover:opacity-90">Sign In</button>
-        </form>
-
-        <div class="mt-6 text-center space-y-3">
-            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
-            <div><a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a></div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        // REPLACE WITH YOUR FRESH KEYS
-        const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            const fields = document.getElementById('signupFields');
-            isLogin ? fields.classList.add('hidden-mode') : fields.classList.remove('hidden-mode');
-        }
-
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            // Authentication logic will go here
-            alert("System Ready. Please ensure API keys are configured.");
-        });
-    </script>
-</body>
-</html>
-            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
-
-            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 py-3 rounded-xl font-bold text-white transition hover:opacity-90">Sign In</button>
-        </form>
-
-        <div class="mt-6 text-center space-y-3">
-            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
-            <div><a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a></div>
-        </div>
-    </div>
-
-    <script>
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            const fields = document.getElementById('signupFields');
-            isLogin ? fields.classList.add('hidden-mode') : fields.classList.remove('hidden-mode');
-        }
-
-        document.getElementById('authForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert("Ready to connect to Supabase.");
-        });
-    </script>
-</body>
-</html>
-            <div>
-                <a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            // Update Text
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            
-            // Toggle Fields
-            const fields = document.getElementById('signupFields');
-            isLogin ? fields.classList.add('hidden-mode') : fields.classList.remove('hidden-mode');
-        }
-
-        document.getElementById('authForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert("Authentication logic initialized. Ensure your Supabase client is connected.");
-        });
-    </script>
-</body>
-</html>
-            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white">Create an account</button>
-            <br>
-            <button class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</button>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            document.getElementById('extraFields').classList.toggle('toggle-hidden', isLogin);
-        }
-
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            alert("Connection successful. Ensure your API keys are valid.");
-        });
-    </script>
-</body>
-</html>
+    </html>
+    
