@@ -28,7 +28,7 @@
             <input type="tel" id="phone" required placeholder="7XX XXX XXX" class="w-full p-4 bg-transparent text-white outline-none">
         </div>
         <input type="password" id="password" required placeholder="Create Password" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500">
-        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:opacity-90 transition">Register Now</button>
+        <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:opacity-90 transition">Register Now</button>
     </form>
 </div>
 
@@ -36,35 +36,43 @@
 <script>
     const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA');
 
-    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    const form = document.getElementById('signupForm');
+    
+    form.addEventListener('submit', async (e) => {
+        // 1. THIS IS THE KEY: Prevents the page from refreshing
         e.preventDefault();
         
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = "Registering...";
+        submitBtn.disabled = true;
+
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const username = document.getElementById('username').value;
         const phone = document.getElementById('phone').value;
 
-        console.log("Starting registration process for:", email);
-
-        // Include metadata for the trigger to capture
+        // 2. Supabase Auth Call
         const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password,
-    options: {
-        data: {
-            username: document.getElementById('username').value,
-            telephone: document.getElementById('phone').value
-        }
-    }
-});
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    username: username,
+                    telephone: phone
+                }
+            }
+        });
 
-
+        // 3. Error handling with Alert (Shows on mobile screen)
         if (error) {
-            console.error("Supabase Signup Error Details:", error);
             alert("Registration Failed: " + error.message);
+            console.error("Supabase Error:", error);
+            submitBtn.innerText = "Register Now";
+            submitBtn.disabled = false;
         } else {
-            console.log("Signup success:", data);
-            alert("Registration successful! Please check your email.");
+            alert("Registration successful! Check your email to verify your account.");
+            console.log("Success:", data);
+            // Optionally redirect here: window.location.href = "dashboard.html";
         }
     });
 </script>
