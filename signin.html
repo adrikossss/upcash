@@ -14,11 +14,15 @@
 <body>
 
 <div class="glass-card shadow-2xl">
-    <div class="flex items-center justify-center gap-2 mb-8">
-        <div class="bg-blue-600 p-2 rounded-lg">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+    <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h1 class="text-xl font-bold text-white tracking-wider">UP<span class="text-blue-500">CASH</span></h1>
         </div>
-        <h1 class="text-xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
+        <h2 class="text-lg font-semibold text-white">Welcome back</h2>
+        <p class="text-sm text-slate-400 mt-1">Automated Instant Withdraws and Deposits.</p>
     </div>
 
     <form id="signinForm" class="space-y-5">
@@ -33,15 +37,23 @@
     </form>
 
     <div class="mt-6 text-center space-y-3">
-        <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition">Forgot Password?</a>
+        <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition">Forgot password?</a>
         <p class="text-sm text-slate-500">Don't have an account? 
-            <a href="index.html" class="text-blue-500 font-bold hover:underline">Create Account</a>
+            <a href="index.html" class="text-blue-500 font-bold hover:underline">Create account</a>
         </p>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+        <a href="mailto:topinvestor@gmail.com" class="inline-flex items-center gap-2 text-slate-500 hover:text-blue-400 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <span class="text-xs">Contact support</span>
+        </a>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+    // Remember to replace these with your actual project keys from Supabase
     const supabase = supabase.createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
 
     document.getElementById('submitBtn').addEventListener('click', async () => {
