@@ -3,45 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Secure Access</title>
+    <title>InvestorPRO | Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Professional Gradient Background */
-        body { 
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); 
-            min-height: 100vh; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 20px;
-        }
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            width: 100%; 
-            max-width: 400px; 
-            padding: 2rem; 
-            border-radius: 2rem; 
-            transition: all 0.3s ease;
-        }
-        /* Morph transition for toggle */
-        .toggle-section {
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .hidden-section {
-            display: none !important;
-        }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2rem; width: 100%; max-width: 400px; padding: 2rem; }
+        /* The key to preventing layout issues */
+        .is-hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="glass-card shadow-2xl">
+<div class="glass shadow-2xl">
     <div class="flex items-center justify-center gap-2 mb-8">
-        <div class="bg-blue-600 p-2 rounded-lg shadow-lg shadow-blue-600/20">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-            </svg>
+        <div class="bg-blue-600 p-2 rounded-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
         </div>
         <h1 class="text-xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
     </div>
@@ -49,45 +25,46 @@
     <h2 id="formTitle" class="text-white text-2xl font-bold text-center mb-6">Welcome Back</h2>
 
     <form id="authForm" class="space-y-4">
-        <div id="signupFields" class="hidden-section toggle-section space-y-4">
-            <input type="text" placeholder="Username" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500 transition">
-            
+        <div id="signupFields" class="is-hidden space-y-4">
+            <input type="text" id="username" placeholder="Username" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none">
             <div class="flex items-center bg-slate-900/50 rounded-xl border border-slate-700 overflow-hidden">
                 <span class="px-4 py-4 text-white font-medium border-r border-slate-700">🇺🇬 +256</span>
-                <input type="tel" placeholder="7XXXXXXXX" class="w-full p-4 bg-transparent text-white outline-none">
+                <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full p-4 bg-transparent text-white outline-none">
             </div>
         </div>
 
-        <input type="email" placeholder="Email Address" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500 transition">
-        <input type="password" placeholder="Password" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500 transition">
+        <input type="email" id="email" required placeholder="Email Address" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none">
+        <input type="password" id="password" required placeholder="Password" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none">
         
-        <button id="mainBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:opacity-90 transition transform active:scale-95">Sign In</button>
+        <button id="mainBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold transition">Sign In</button>
     </form>
 
-    <div class="mt-6 text-center space-y-4">
+    <div class="mt-6 text-center space-y-3">
         <button id="toggleBtn" class="text-sm text-blue-400 hover:text-white transition">Create an account</button>
         <p class="text-xs text-slate-500">Forgot Password?</p>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+    // Initialize Supabase
+    const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+    
     const toggleBtn = document.getElementById('toggleBtn');
     const formTitle = document.getElementById('formTitle');
     const mainBtn = document.getElementById('mainBtn');
     const signupFields = document.getElementById('signupFields');
-    
     let isLogin = true;
 
+    // Toggle Action
     toggleBtn.addEventListener('click', () => {
         isLogin = !isLogin;
-        
-        // Morph text content
         formTitle.innerText = isLogin ? "Welcome Back" : "Create Account";
         mainBtn.innerText = isLogin ? "Sign In" : "Register Now";
         toggleBtn.innerText = isLogin ? "Create an account" : "Have an account? Login";
         
-        // Toggle view with display:none to remove from layout flow
-        signupFields.classList.toggle('hidden-section');
+        // This ensures the fields are either added or removed from the DOM layout
+        signupFields.classList.toggle('is-hidden');
     });
 </script>
 </body>
