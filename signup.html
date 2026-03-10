@@ -48,15 +48,16 @@
 
         // Include metadata for the trigger to capture
         const { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    username: username,
-                    telephone: phone
-                }
-            }
-        });
+    email: email,
+    password: password,
+    options: {
+        data: {
+            username: document.getElementById('username').value,
+            telephone: document.getElementById('phone').value
+        }
+    }
+});
+
 
         if (error) {
             console.error("Supabase Signup Error Details:", error);
