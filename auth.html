@@ -3,122 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO</title>
+    <title>InvestorPRO | Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: radial-gradient(circle at top right, #0f172a, #1e1b4b); min-height: 100vh; }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .hidden { display: none !important; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .toggle-hidden { display: none !important; }
     </style>
 </head>
-<body class="p-4 flex flex-col items-center">
+<body class="flex items-center justify-center min-h-screen p-4">
 
-    <div class="glass-card p-8 rounded-3xl w-full max-w-md shadow-2xl">
-        <h2 id="title" class="text-2xl font-bold text-white text-center mb-8">Welcome Back</h2>
+    <div class="glass p-8 rounded-3xl w-full max-w-sm">
+        <h2 id="title" class="text-2xl font-bold text-white text-center mb-6">Welcome Back</h2>
 
         <form id="authForm" class="space-y-4">
-            <div id="usernameGroup" class="relative hidden">
-                <svg class="absolute left-3 top-3.5 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none">
+            <div id="extraFields" class="toggle-hidden space-y-4">
+                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white">
+                <div class="relative">
+                    <div class="absolute left-3 top-3.5 flex items-center gap-2 border-r border-slate-700 pr-2 text-slate-300 font-medium">
+                        <span>🇺🇬</span> +256
+                    </div>
+                    <input type="tel" id="phone" placeholder="7XX XXX XXX" class="w-full bg-slate-900/50 p-3 pl-20 rounded-xl border border-white/10 text-white">
+                </div>
             </div>
 
-            <div class="relative">
-                <svg class="absolute left-3 top-3.5 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none">
-            </div>
+            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white">
+            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white">
 
             <button type="submit" id="mainBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-white">Sign In</button>
         </form>
 
-        <button type="button" onclick="toggleMode()" id="toggleBtn" class="mt-6 text-xs text-slate-400 hover:text-white">Create an account</button>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const supabase = https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzA4MDAwMiwiZXhwIjoyMDg4NjU2MDAyfQ.4bTmFHFKgQdErQnU90j9U1amCJNN_k7nlkKrrLD7R8w);
-        let isLogin = true;
-
-        function toggleMode() {
-            isLogin = !isLogin;
-            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
-            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
-            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            document.getElementById('usernameGroup').classList.toggle('hidden', isLogin);
-        }
-
-        document.getElementById('authForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            // Your Supabase logic here
-            alert("Processing...");
-        });
-    </script>
-</body>
-</html>
-                <i data-lucide="user" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
-                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-
-            <div class="relative">
-                <i data-lucide="mail" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
-                <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-
-            <div id="phoneGroup" class="relative hidden">
-                <div class="absolute left-3 top-3.5 flex items-center gap-2 border-r border-slate-700 pr-2">
-                    <span class="text-lg">🇺🇬</span> <span class="text-slate-300 font-medium">+256</span>
-                </div>
-                <input type="tel" id="phone" placeholder=" 7XX XXX XXX" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-20 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-            
-            <div class="relative">
-                <i data-lucide="lock" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
-                <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-
-            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded-xl font-bold hover:opacity-90 transition active:scale-95 text-white">
-                Sign In
-            </button>
-        </form>
-
-        <div class="mt-6 flex justify-between text-xs text-slate-400">
-            <button type="button" onclick="toggleMode()" id="toggleBtn" class="hover:text-white transition">Create an account</button>
+        <div class="mt-6 text-center space-y-2">
+            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white">Create an account</button>
+            <br>
+            <button class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA');
+        const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
         let isLogin = true;
-
-        // Initialize icons
-        window.addEventListener('load', () => { lucide.createIcons(); });
 
         function toggleMode() {
             isLogin = !isLogin;
             document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
             document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
             document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
-            document.getElementById('phoneGroup').classList.toggle('hidden', !isLogin); // Fixed logic
-            document.getElementById('usernameGroup').classList.toggle('hidden', !isLogin);
-            lucide.createIcons();
+            document.getElementById('extraFields').classList.toggle('toggle-hidden', isLogin);
         }
 
         document.getElementById('authForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (isLogin) {
-                const { error } = await supabase.auth.signInWithPassword({ email, password });
-                if (error) alert(error.message); else window.location.href = "index.html";
-            } else {
-                const phone = document.getElementById('phone').value;
-                const username = document.getElementById('username').value;
-                const { error } = await supabase.auth.signUp({ 
-                    email, password, options: { data: { Telephone: phone, username: username } } 
-                });
-                if (error) alert(error.message); else alert("Registration successful! Check email.");
-            }
+            alert("Connection successful. Ensure your API keys are valid.");
         });
     </script>
 </body>
