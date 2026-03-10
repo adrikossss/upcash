@@ -6,34 +6,85 @@
     <title>InvestorPRO | Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Premium Fintech Gradient */
         body { 
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); 
             min-height: 100vh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
+            margin: 0;
             padding: 20px;
         }
-        .card { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+        .login-card { 
+            background: #0f172a; 
+            border: 1px solid #334155; 
             width: 100%; 
             max-width: 400px; 
-            padding: 30px; 
-            border-radius: 24px; 
+            padding: 2rem; 
+            border-radius: 2rem; 
+            text-align: center;
         }
-        /* Strict visibility toggle */
-        .hidden-fields { display: none; }
+        /* This hides elements and removes them from layout flow */
+        .force-hide { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="card shadow-2xl">
-    <div class="flex items-center justify-center gap-2 mb-8">
+<div class="login-card">
+    <div class="flex items-center justify-center gap-2 mb-6">
         <div class="bg-blue-600 p-2 rounded-lg">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+        </div>
+        <h1 class="text-xl font-bold text-white">INVESTOR<span class="text-blue-500">PRO</span></h1>
+    </div>
+
+    <h2 id="title" class="text-white text-2xl font-bold mb-6">Welcome Back</h2>
+
+    <form id="authForm" class="space-y-4">
+        <div id="signupFields" class="force-hide space-y-4">
+            <input type="text" placeholder="Username" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
+            <div class="flex items-center bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+                <span class="px-4 py-3 text-white border-r border-slate-700">🇺🇬 +256</span>
+                <input type="tel" placeholder="7XXXXXXXX" class="w-full p-3 bg-transparent text-white outline-none">
+            </div>
+        </div>
+
+        <input type="email" placeholder="Email Address" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
+        <input type="password" placeholder="Password" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none">
+        
+        <button id="mainBtn" class="w-full py-3 rounded-xl bg-blue-600 text-white font-bold">Sign In</button>
+    </form>
+
+    <div class="mt-6">
+        <button id="toggleBtn" class="text-sm text-blue-400">Create an account</button>
+        <p class="mt-4 text-xs text-slate-500">Forgot Password?</p>
+    </div>
+</div>
+
+<script>
+    const toggleBtn = document.getElementById('toggleBtn');
+    const title = document.getElementById('title');
+    const mainBtn = document.getElementById('mainBtn');
+    const signupFields = document.getElementById('signupFields');
+    let isLogin = true;
+
+    toggleBtn.addEventListener('click', () => {
+        isLogin = !isLogin;
+        if (isLogin) {
+            title.innerText = "Welcome Back";
+            mainBtn.innerText = "Sign In";
+            toggleBtn.innerText = "Create an account";
+            signupFields.classList.add('force-hide');
+        } else {
+            title.innerText = "Create Account";
+            mainBtn.innerText = "Register Now";
+            toggleBtn.innerText = "Have an account? Login";
+            signupFields.classList.remove('force-hide');
+        }
+    });
+</script>
+</body>
+</html>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
             </svg>
         </div>
