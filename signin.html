@@ -3,56 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Secure Investment Platform</title>
+    <title>InvestorPRO | Secure Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: linear-gradient(135deg, #0b1120 0%, #171738 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; font-family: 'Inter', sans-serif; }
-        .glass-card { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); width: 100%; max-width: 400px; padding: 2rem; border-radius: 1.5rem; }
+        body { background: #020617; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; font-family: 'Inter', sans-serif; }
+        .vault-card { background: #0f172a; border: 1px solid #1e293b; width: 100%; max-width: 420px; padding: 3rem 2rem; border-radius: 0.5rem; }
     </style>
 </head>
 <body>
 
-<div class="glass-card shadow-2xl">
-    <div class="text-center mb-8">
-        <div class="flex items-center justify-center gap-2 mb-2">
-            <h1 class="text-2xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
-            <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+<div class="vault-card shadow-2xl">
+    <div class="mb-10 text-center">
+        <div class="flex items-center justify-center gap-1.5 mb-3">
+            <h1 class="text-xl font-bold text-white tracking-widest uppercase">InvestorPRO</h1>
+            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
         </div>
-        <p class="text-blue-400 text-xs font-semibold uppercase tracking-widest">Secure Investment Platform</p>
+        <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em]">Secure Investment Portal</p>
     </div>
 
-    <div class="grid grid-cols-2 gap-4 mb-8">
-        <div class="text-center p-3 bg-slate-900/50 rounded-xl border border-slate-800">
-            <span class="block text-blue-500 mb-1">🔒</span>
-            <p class="text-[10px] text-slate-400 uppercase font-bold">Secure</p>
+    <form id="signinForm" class="space-y-6">
+        <div>
+            <input type="email" id="email" required placeholder="topinvestor@gmail.com" class="w-full bg-transparent border-b border-slate-700 py-3 text-white outline-none focus:border-blue-500 transition-all placeholder:text-slate-600 text-sm">
         </div>
-        <div class="text-center p-3 bg-slate-900/50 rounded-xl border border-slate-800">
-            <span class="block text-emerald-500 mb-1">⚡</span>
-            <p class="text-[10px] text-slate-400 uppercase font-bold">Instant</p>
+        <div>
+            <input type="password" id="password" required placeholder="Enter Password" class="w-full bg-transparent border-b border-slate-700 py-3 text-white outline-none focus:border-blue-500 transition-all placeholder:text-slate-600 text-sm">
         </div>
-    </div>
-
-    <form id="signinForm" class="space-y-4">
-        <input type="email" id="email" required placeholder="topinvestor@gmail.com" class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 text-white outline-none focus:border-blue-500 transition">
-        <input type="password" id="password" required placeholder="••••••••" class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 text-white outline-none focus:border-blue-500 transition">
         
-        <button type="button" id="submitBtn" class="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition">Sign In</button>
+        <button type="button" id="submitBtn" class="w-full py-3.5 mt-4 bg-white text-slate-950 font-bold text-sm uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all">Sign In</button>
     </form>
 
-    <div class="mt-6 flex justify-between text-xs text-slate-500">
-        <a href="#" class="hover:text-blue-400">Forgot Password?</a>
-        <a href="index.html" class="font-bold text-blue-500 hover:underline">Create Account</a>
+    <div class="mt-8 flex justify-between items-center text-[11px] text-slate-500">
+        <a href="#" class="hover:text-blue-400 uppercase tracking-wider">Forgot?</a>
+        <a href="index.html" class="hover:text-blue-400 uppercase tracking-wider font-bold text-slate-300">Create Account</a>
     </div>
 
-    <div class="mt-10 pt-6 border-t border-slate-800 text-center">
-        <a href="mailto:topinvestor@gmail.com" class="inline-flex items-center gap-2 text-slate-600 hover:text-slate-400 transition">
-            <span>📧</span> <span class="text-xs">Contact Support</span>
+    <div class="mt-12 text-center">
+        <a href="mailto:topinvestor@gmail.com" class="text-slate-700 hover:text-slate-500 transition">
+            <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
         </a>
     </div>
 </div>
 
-<script>
-    // Integration logic remains: supabase.auth.signInWithPassword(...)
-</script>
 </body>
 </html>
