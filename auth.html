@@ -3,37 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Secure Access</title>
+    <title>InvestorPRO | Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #0f172a; min-height: 100vh; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        /* Professional Gradient Background */
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .hidden-mode { display: none !important; }
     </style>
 </head>
 <body class="flex items-center justify-center p-4">
 
     <div class="glass p-8 rounded-3xl w-full max-w-sm shadow-2xl">
+        <div class="flex items-center justify-center gap-2 mb-6">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h1 class="text-xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
+        </div>
+
         <h2 id="title" class="text-2xl font-bold text-white text-center mb-6">Welcome Back</h2>
 
         <form id="authForm" class="space-y-4">
             <div id="signupFields" class="hidden-mode space-y-4">
-                <input type="text" id="username" placeholder="Full Name" class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-white outline-none focus:border-blue-500">
+                <input type="text" id="username" placeholder="Full Name" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
                 
-                <div class="relative flex items-center bg-slate-800 rounded-xl border border-slate-700">
+                <div class="relative flex items-center bg-slate-900/50 rounded-xl border border-white/10">
                     <span class="pl-4 text-slate-400 font-medium border-r border-slate-700 pr-2">🇺🇬 +256</span>
                     <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full bg-transparent p-3 outline-none text-white">
                 </div>
             </div>
 
-            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-white outline-none focus:border-blue-500">
-            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-white outline-none focus:border-blue-500">
+            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
+            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white outline-none focus:border-blue-500">
 
-            <button type="submit" id="mainBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-white transition">Sign In</button>
+            <button type="submit" id="mainBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 py-3 rounded-xl font-bold text-white transition hover:opacity-90">Sign In</button>
         </form>
 
         <div class="mt-6 text-center space-y-3">
-            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white">Create an account</button>
+            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white transition">Create an account</button>
+            <div><a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a></div>
+        </div>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggleMode() {
+            isLogin = !isLogin;
+            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
+            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
+            const fields = document.getElementById('signupFields');
+            isLogin ? fields.classList.add('hidden-mode') : fields.classList.remove('hidden-mode');
+        }
+
+        document.getElementById('authForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Ready to connect to Supabase.");
+        });
+    </script>
+</body>
+</html>
             <div>
                 <a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a>
             </div>
