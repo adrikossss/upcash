@@ -60,31 +60,28 @@
     const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA');
 
     document.getElementById('signupForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const username = document.getElementById('username').value;
-        const phone = document.getElementById('phone').value;
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    // Log for debugging
+    console.log("Attempting signup for:", email);
 
-        const { error } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    username: username,
-                    telephone: phone // Matches the key in your SQL trigger
-                }
-            }
-        });
-
-        if (error) {
-            alert("Registration Error: " + error.message);
-        } else {
-            alert("Registration successful! Check your email to confirm.");
-            document.getElementById('signupForm').reset();
-        }
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
     });
+
+    if (error) {
+        console.error("Signup failed:", error.message);
+        alert("Registration Error: " + error.message);
+    } else {
+        console.log("Signup success:", data);
+        alert("Registration successful!");
+    }
+});
+
 </script>
 </body>
 </html>
