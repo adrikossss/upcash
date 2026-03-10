@@ -3,37 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Secure Access</title>
+    <title>InvestorPRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { background: radial-gradient(circle at top right, #0f172a, #1e1b4b); min-height: 100vh; }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .hidden { display: none !important; }
     </style>
 </head>
 <body class="p-4 flex flex-col items-center">
 
-    <header class="w-full max-w-md flex items-center justify-between py-8">
-        <div class="flex items-center gap-2">
-            <div class="bg-blue-600 p-2 rounded-lg">
-                <i data-lucide="trending-up" class="text-white w-5 h-5"></i>
-            </div>
-            <h1 class="text-xl font-bold tracking-tight text-white">INVESTOR<span class="text-blue-500">PRO</span></h1>
-        </div>
-        <div class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">Verified</div>
-    </header>
-
-    <div class="glass-card p-8 rounded-3xl w-full max-w-md shadow-2xl fade-in">
-        <div class="text-center mb-8">
-            <h2 id="title" class="text-2xl font-bold text-white">Welcome Back</h2>
-            <p class="text-slate-400 text-sm">Professional investment management</p>
-        </div>
+    <div class="glass-card p-8 rounded-3xl w-full max-w-md shadow-2xl">
+        <h2 id="title" class="text-2xl font-bold text-white text-center mb-8">Welcome Back</h2>
 
         <form id="authForm" class="space-y-4">
             <div id="usernameGroup" class="relative hidden">
+                <svg class="absolute left-3 top-3.5 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none">
+            </div>
+
+            <div class="relative">
+                <svg class="absolute left-3 top-3.5 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none">
+            </div>
+
+            <button type="submit" id="mainBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-white">Sign In</button>
+        </form>
+
+        <button type="button" onclick="toggleMode()" id="toggleBtn" class="mt-6 text-xs text-slate-400 hover:text-white">Create an account</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabase = https://wbodpfbmilhperccgzei.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MzA4MDAwMiwiZXhwIjoyMDg4NjU2MDAyfQ.4bTmFHFKgQdErQnU90j9U1amCJNN_k7nlkKrrLD7R8w);
+        let isLogin = true;
+
+        function toggleMode() {
+            isLogin = !isLogin;
+            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
+            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
+            document.getElementById('usernameGroup').classList.toggle('hidden', isLogin);
+        }
+
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // Your Supabase logic here
+            alert("Processing...");
+        });
+    </script>
+</body>
+</html>
                 <i data-lucide="user" class="absolute left-3 top-3.5 w-5 h-5 text-slate-500"></i>
                 <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 border border-white/10 p-3 pl-10 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
