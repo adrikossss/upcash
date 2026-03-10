@@ -3,37 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Access</title>
+    <title>InvestorPRO | Secure Access</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: radial-gradient(circle at top right, #0f172a, #1e1b4b); min-height: 100vh; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .toggle-hidden { display: none !important; }
+        body { background: #0f172a; min-height: 100vh; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .hidden-mode { display: none !important; }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body class="flex items-center justify-center p-4">
 
-    <div class="glass p-8 rounded-3xl w-full max-w-sm">
+    <div class="glass p-8 rounded-3xl w-full max-w-sm shadow-2xl">
         <h2 id="title" class="text-2xl font-bold text-white text-center mb-6">Welcome Back</h2>
 
         <form id="authForm" class="space-y-4">
-            <div id="extraFields" class="toggle-hidden space-y-4">
-                <input type="text" id="username" placeholder="Username" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white">
-                <div class="relative">
-                    <div class="absolute left-3 top-3.5 flex items-center gap-2 border-r border-slate-700 pr-2 text-slate-300 font-medium">
-                        <span>🇺🇬</span> +256
-                    </div>
-                    <input type="tel" id="phone" placeholder="7XX XXX XXX" class="w-full bg-slate-900/50 p-3 pl-20 rounded-xl border border-white/10 text-white">
+            <div id="signupFields" class="hidden-mode space-y-4">
+                <input type="text" id="username" placeholder="Full Name" class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-white outline-none focus:border-blue-500">
+                
+                <div class="relative flex items-center bg-slate-800 rounded-xl border border-slate-700">
+                    <span class="pl-4 text-slate-400 font-medium border-r border-slate-700 pr-2">🇺🇬 +256</span>
+                    <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full bg-transparent p-3 outline-none text-white">
                 </div>
             </div>
 
-            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white">
-            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-900/50 p-3 rounded-xl border border-white/10 text-white">
+            <input type="email" id="email" required placeholder="Email Address" class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-white outline-none focus:border-blue-500">
+            <input type="password" id="password" required placeholder="Password" class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-white outline-none focus:border-blue-500">
 
-            <button type="submit" id="mainBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-white">Sign In</button>
+            <button type="submit" id="mainBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold text-white transition">Sign In</button>
         </form>
 
-        <div class="mt-6 text-center space-y-2">
+        <div class="mt-6 text-center space-y-3">
+            <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white">Create an account</button>
+            <div>
+                <a href="#" class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggleMode() {
+            isLogin = !isLogin;
+            // Update Text
+            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+            document.getElementById('mainBtn').innerText = isLogin ? "Sign In" : "Register Now";
+            document.getElementById('toggleBtn').innerText = isLogin ? "Create an account" : "Have an account? Login";
+            
+            // Toggle Fields
+            const fields = document.getElementById('signupFields');
+            isLogin ? fields.classList.add('hidden-mode') : fields.classList.remove('hidden-mode');
+        }
+
+        document.getElementById('authForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Authentication logic initialized. Ensure your Supabase client is connected.");
+        });
+    </script>
+</body>
+</html>
             <button onclick="toggleMode()" id="toggleBtn" class="text-sm text-slate-400 hover:text-white">Create an account</button>
             <br>
             <button class="text-xs text-slate-500 hover:text-blue-400">Forgot Password?</button>
