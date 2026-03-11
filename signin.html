@@ -25,7 +25,7 @@
         <p class="text-sm text-slate-400 mt-1">Automated Instant Withdraws and Deposits.</p>
     </div>
 
-    <form id="signinForm" class="space-y-5">
+    <div class="space-y-5">
         <div>
             <input type="email" id="email" required placeholder="forexample@gmail.com" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500 transition">
         </div>
@@ -34,7 +34,7 @@
         </div>
         
         <button type="button" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:opacity-90 transition shadow-lg shadow-blue-900/20">Sign In</button>
-    </form>
+    </div>
 
     <div class="mt-6 text-center space-y-3">
         <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition">Forgot password?</a>
@@ -51,25 +51,40 @@
     </div>
 </div>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Remember to replace these with your actual project keys from Supabase
+    // Initialize Supabase
     const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
 
-    // Change this line:
-document.getElementById('signinForm').addEventListener('submit', async (e) => {
-    e.preventDefault(); // This stops the page from refreshing
-    // ... the rest of your cod
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Manual click listener for the button
+    submitBtn.addEventListener('click', async () => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        // Feedback to user
+        submitBtn.innerText = "Signing in...";
+        submitBtn.disabled = true;
 
-        if (error) {
-            alert("Login Failed: " + error.message);
-        } else {
-            alert("Login successful!");
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) throw error;
+
+            // Success - Redirect
             window.location.href = "dashboard.html";
+            
+        } catch (err) {
+            alert("Login Failed: " + err.message);
+            // Reset button on failure
+            submitBtn.innerText = "Sign In";
+            submitBtn.disabled = false;
         }
     });
 </script>
