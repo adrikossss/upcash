@@ -7,250 +7,107 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            background: radial-gradient(circle at top left, #1e293b, #0f172a);
-            min-height: 100vh;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, #60a5fa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }/* ... existing CSS ... */
-
-    .gradient-text {
-        background: linear-gradient(90deg, #60a5fa, #a855f7);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    /* PASTE HERE */
-    .pulse-green {
-        animation: pulse-animation 2s infinite;
-        border-radius: 9999px; /* Ensures the glow follows the pill shape */
-    }
-
-    @keyframes pulse-animation {
-        0% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0.4); }
-        70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
-        100% { box-shadow: 0 0 0 0px rgba(34, 197, 94, 0); }
-    }
+        body { background: radial-gradient(circle at top left, #1e293b, #0f172a); min-height: 100vh; color: #e2e8f0; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-gradient { background: linear-gradient(135deg, #3b82f6, #8b5cf6); border: none; color: white; }
+        .text-gradient { background: linear-gradient(90deg, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="text-slate-200 font-sans pb-20">
+<body class="font-sans pb-20">
 
     <header class="flex items-center justify-between p-5 sticky top-0 bg-slate-900/50 backdrop-blur-md z-50 border-b border-white/5">
-    <div class="flex items-center gap-2">
-        <div class="bg-blue-600 p-2 rounded-lg">
-            <i data-lucide="trending-up" class="text-white w-5 h-5"></i>
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="trending-up" class="text-white w-5 h-5"></i></div>
+            <h1 class="text-xl font-bold tracking-tight">INVESTOR<span class="text-blue-500">PRO</span></h1>
+          
         </div>
-        <h1 class="text-xl font-bold tracking-tight">INVESTOR<span class="text-blue-500">PRO</span></h1>
-    </div>
-    
-    <div class="flex items-center gap-2">
-        <button onclick="handleLogout()" class="p-2 hover:bg-red-500/10 rounded-full group transition-colors" title="Log Out">
-            <i data-lucide="log-out" class="w-5 h-5 text-slate-400 group-hover:text-red-400"></i>
-        </button>
-        
-        <button class="p-2 hover:bg-slate-800 rounded-full">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-    </div>
-</header>
-
+        <div class="flex items-center gap-2">
+            <button onclick="handleLogout()" class="p-2 hover:bg-red-500/10 rounded-full"><i data-lucide="log-out" class="w-5 h-5 text-slate-400"></i></button>
+            <button class="p-2 hover:bg-slate-800 rounded-full"><i data-lucide="user-circle" class="w-6 h-6 text-slate-400"></i></button>
+        </div>
+    </header>
+<div class="px-5 py-4 max-w-lg mx-auto">
+    <p class="text-slate-400 text-sm font-medium">
+        Welcome back, <span class="text-gradient font-bold" id="username">User</span>
+    </p>
+</div>
 
     <main class="p-4 max-w-lg mx-auto space-y-6">
-        
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-slate-400 text-sm">Welcome back,</p>
-                <h2 class="text-xl font-semibold" id="username">@Caleb_User</h2>
-            </div>
-            <div class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">
-                Verified Account
-            </div>
-        </div>
-
-        <div class="rounded-3xl p-6 relative overflow-hidden shadow-2xl border border-white/10" 
-             style="background: linear-gradient(135deg, #2563eb, #7c3aed);">
-            <div class="relative z-10">
-                <p class="text-blue-100/80 text-sm font-medium mb-1">Available Balance</p>
-                <h3 class="text-4xl font-black mb-6">UGX <span id="balance">450,000</span></h3>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3">
-                        <p class="text-xs text-blue-100/60 uppercase">Total Investment</p>
-                        <p class="font-bold text-lg" id="totalInv">UGX 1.2M</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3">
-                        <p class="text-xs text-blue-100/60 uppercase">Total Withdrawn</p>
-                        <p class="font-bold text-lg" id="totalWith">UGX 85,000</p>
-                    </div>
+        <div class="rounded-3xl p-6 shadow-2xl border border-white/10" style="background: linear-gradient(135deg, #2563eb, #7c3aed);">
+            <p class="text-blue-100/80 text-sm font-medium mb-1">Available Balance</p>
+            <h3 class="text-4xl font-black mb-6">UGX <span id="balance">0</span></h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3">
+                    <p class="text-xs text-blue-100/60 uppercase">Total Investment</p>
+                    <p class="font-bold text-lg" id="totalInv">UGX 0</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3">
+                    <p class="text-xs text-blue-100/60 uppercase">Total Withdrawn</p>
+                    <p class="font-bold text-lg" id="totalWith">UGX 0</p>
                 </div>
             </div>
-            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <button class="flex items-center justify-center gap-2 bg-slate-100 text-slate-900 font-bold py-4 rounded-2xl hover:bg-white transition active:scale-95">
-                <i data-lucide="arrow-down-to-line" class="w-5 h-5"></i>
-                Deposit
-            </button>
-            <button class="flex items-center justify-center gap-2 glass-card font-bold py-4 rounded-2xl hover:bg-slate-800 transition active:scale-95 border-white/20">
-                <i data-lucide="arrow-up-from-line" class="w-5 h-5 text-purple-400"></i>
-                Withdraw
-            </button>
+            <button class="btn-gradient font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm"><i data-lucide="arrow-down-to-line" class="w-4 h-4"></i> Deposit</button>
+            <button class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20"><i data-lucide="arrow-up-from-line" class="w-4 h-4 text-purple-400"></i> Withdraw</button>
+            <button onclick="copyLink()" class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20"><i data-lucide="copy" class="w-4 h-4 text-blue-400"></i> Copy Link</button>
+            <a href="https://chat.whatsapp.com/HEusxMonb275LAHnJbooY2" target="_blank" class="bg-[#25D366]/20 border border-[#25D366]/30 font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm text-[#25D366]">
+                <i data-lucide="message-circle" class="w-4 h-4"></i> Community
+            </a>
         </div>
 
-        <div class="glass-card rounded-2xl p-5 space-y-4">
-            <div class="flex items-center justify-between">
-                <button onclick="copyLink()" class="flex items-center gap-3 text-sm font-medium hover:text-blue-400">
-                    <i data-lucide="copy" class="w-4 h-4 text-blue-400"></i>
-                    Copy Referral Link
-                </button>
-                <div class="h-4 w-[1px] bg-slate-700"></div>
-                <button class="flex items-center gap-3 text-sm font-medium hover:text-blue-400">
-                    <i data-lucide="users" class="w-4 h-4 text-purple-400"></i>
-                    My Affiliates
-                </button>
-            </div>
+        <h4 class="text-lg font-bold flex items-center gap-2 text-gradient"><i data-lucide="briefcase" class="w-5 h-5"></i> Investment Plans</h4>
+        <div class="glass-card rounded-2xl overflow-hidden">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-white/5 text-slate-400 text-xs uppercase">
+                    <tr><th class="p-4">Plan</th><th class="p-4 text-center">ROI</th><th class="p-4 text-center">Days</th><th class="p-4 text-right">Min</th></tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <tr><td class="p-4 font-bold text-blue-400">Silver</td><td class="p-4 text-center">15%</td><td class="p-4 text-center">7</td><td class="p-4 text-right font-medium">50k</td></tr>
+                    <tr><td class="p-4 font-bold text-purple-400">Gold</td><td class="p-4 text-center">40%</td><td class="p-4 text-center">30</td><td class="p-4 text-right font-medium">200k</td></tr>
+                    <tr><td class="p-4 font-bold text-pink-400">Diamond</td><td class="p-4 text-center">100%</td><td class="p-4 text-center">90</td><td class="p-4 text-right font-medium">1M</td></tr>
+                    <tr><td class="p-4 font-bold text-orange-400">VIP</td><td class="p-4 text-center">250%</td><td class="p-4 text-center">180</td><td class="p-4 text-right font-medium">5M</td></tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="space-y-4">
-            <h4 class="text-lg font-bold flex items-center gap-2">
-                <i data-lucide="briefcase" class="w-5 h-5 text-blue-400"></i>
-                Investment Plans
-            </h4>
-            <div class="glass-card rounded-2xl overflow-hidden">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-white/5 text-slate-400 text-xs uppercase">
-                        <tr>
-                            <th class="p-4">Plan</th>
-                            <th class="p-4 text-center">ROI</th>
-                            <th class="p-4 text-center">Days</th>
-                            <th class="p-4 text-right">Min</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/5">
-                        <tr>
-                            <td class="p-4 font-bold text-blue-400">Silver</td>
-                            <td class="p-4 text-center">15%</td>
-                            <td class="p-4 text-center">7</td>
-                            <td class="p-4 text-right font-medium">50k</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-purple-400">Gold</td>
-                            <td class="p-4 text-center">40%</td>
-                            <td class="p-4 text-center">30</td>
-                            <td class="p-4 text-right font-medium">200k</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-pink-400">Diamond</td>
-                            <td class="p-4 text-center">100%</td>
-                            <td class="p-4 text-center">90</td>
-                            <td class="p-4 text-right font-medium">1M</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-bold text-orange-400">VIP</td>
-                            <td class="p-4 text-center">250%</td>
-                            <td class="p-4 text-center">180</td>
-                            <td class="p-4 text-right font-medium">5M</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="space-y-3">
-            <button class="w-full glass-card p-4 rounded-2xl flex items-center justify-between group">
-                <div class="flex items-center gap-4">
-                    <div class="bg-slate-800 p-2 rounded-xl group-hover:bg-blue-500/20 transition">
-                        <i data-lucide="history" class="w-5 h-5 text-blue-400"></i>
-                    </div>
-                    <span class="font-semibold">Transaction History</span>
-                </div>
-                <i data-lucide="chevron-right" class="w-5 h-5 text-slate-600"></i>
-            </button>
-
-            <a href="https://chat.whatsapp.com/HEusxMonb275LAHnJbooY2?mode=gi_t" 
-   target="_blank" 
-   class="w-full bg-[#25D366]/10 border border-[#25D366]/20 p-4 rounded-2xl flex items-center justify-between group hover:bg-[#25D366]/20 transition">
-    <div class="flex items-center gap-4">
-        <div class="bg-[#25D366] p-2 rounded-xl shadow-lg shadow-[#25D366]/20">
-            <i data-lucide="message-circle" class="w-5 h-5 text-white"></i>
-        </div>
-        <div>
-            <span class="block font-bold text-[#25D366]">Join WhatsApp Group</span>
-            <p class="text-[10px] text-slate-400">Get daily updates and signals</p>
-        </div>
-    </div>
-    <i data-lucide="external-link" class="w-4 h-4 text-[#25D366]"></i>
-</a>
+        <div class="flex justify-center pt-4">
+            <a href="mailto:admin@investorpro.com" class="text-slate-500 hover:text-purple-400 transition">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+            </a>
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Initialize Icons
+        const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'YOUR_KEY');
+
+        async function loadDashboard() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) return window.location.href = "auth.html";
+
+            const { data } = await supabase.from('UserdataTab').select('*').eq('user_id', user.id).single();
+            if (data) {
+                document.getElementById('balance').innerText = Number(data.Available_balance || 0).toLocaleString();
+                document.getElementById('totalInv').innerText = "UGX " + Number(data.Total_investment || 0).toLocaleString();
+                document.getElementById('totalWith').innerText = "UGX " + Number(data.Total_withdrawn || 0).toLocaleString();
+            }
+            
+            // Initialize icons here to ensure they always load
+            lucide.createIcons();
+        }
+
+        function copyLink() { alert("Link copied!"); }
+        function handleLogout() { supabase.auth.signOut().then(() => window.location.href = "auth.html"); }
+        window.onload = loadDashboard;
+        // Force Icon Refresh
+window.addEventListener('load', function() {
+    if (typeof lucide !== 'undefined') {
         lucide.createIcons();
-
-        // 1. Initialize Supabase
-const supabaseUrl = 'https://wbodpfbmilhperccgzei.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indib2RwZmJtaWxocGVyY2NnemVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwODAwMDIsImV4cCI6MjA4ODY1NjAwMn0.2hNY3hnYxMRZBrosVHnfID5jdCjQ3BLh7JfvLB7kBoA';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-// 2. Main Sync Function
-async function loadDashboard() {
-    // Initialize Icons
-    lucide.createIcons();
-
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-        window.location.href = "auth.html";
-        return;
     }
-
-    // Fetch data using your exact snake_case column names
-    const { data, error } = await supabase
-        .from('UserdataTab')
-        .select('username, Available_balance, Total_investment, Total_withdrawn')
-        .eq('user_id', user.id)
-        .single();
-
-    if (error) {
-        console.error("Sync Error:", error.message);
-        return;
-    }
-
-    // 3. Update UI
-    if (data) {
-        document.getElementById('username').innerText = data.username || "User";
-        document.getElementById('balance').innerText = Number(data.Available_balance).toLocaleString();
-        document.getElementById('totalInv').innerText = "UGX " + Number(data.Total_investment).toLocaleString();
-        document.getElementById('totalWith').innerText = "UGX " + Number(data.Total_withdrawn).toLocaleString();
-    }
-}
-
-// 4. Helper Functions
-function copyLink() {
-    alert("Referral link functionality coming soon!");
-}
-
-function handleLogout() {
-    supabase.auth.signOut().then(() => {
-        window.location.href = "auth.html";
-    });
-}
-
-// Run on page load
-loadDashboard();
+});
 
     </script>
 </body>
 </html>
-
-            
