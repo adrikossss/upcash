@@ -88,54 +88,68 @@
     </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // 1. Initialize Supabase
+    // 1. Initialize Supabase first
     const supabaseUrl = 'https://wbodpfbmilhperccgzei.supabase.co';
     const supabaseKey = 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
+    // 2. Define loadUserData
     async function loadUserData() {
         try {
-            // Get the current logged-in user
             const { data: { user } } = await supabaseClient.auth.getUser();
-            
-            if (!user) {
-                console.log("No user logged in.");
-                return;
-            }
+            if (!user) return;
 
-            // Fetch data from 'userinfo' table using the correct column name 'userid'
             const { data, error } = await supabaseClient
                 .from('userinfo')
                 .select('available_balance, telephone')
-                .eq('userid', user.id) // Corrected column name to 'userid'
+                .eq('userid', user.id)
                 .single();
 
             if (data) {
-                // Update the UI with fetched data
                 document.getElementById('availBalance').textContent = 'UGX ' + data.available_balance.toLocaleString();
                 document.getElementById('recipientNum').textContent = data.telephone;
-            } else if (error) {
-                console.error("Supabase Error:", error);
             }
         } catch (err) {
-            console.error("Unexpected error:", err);
+            console.error("Error loading data:", err);
         }
     }
 
-    // Run on page load
+    // 3. Define the new, secure handleWithdraw
+    async function handleWithdraw() {
+        const amountInput = document.getElementById('withdrawAmount').value;
+        const amount = parseFloat(amountInput);
+
+        if (!amount || amount < 10000) {
+            alert("Minimum withdrawal is UGX 10,000");
+            return;
+        }
+
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) {
+            alert("Please sign in.");
+            return;
+        }
+
+        // Call the SQL function
+        const { data, error } = await supabaseClient.rpc('withdraw_funds', {
+            user_id_param: user.id,
+            amount_to_withdraw: amount
+        });
+
+        if (error) {
+            console.error("RPC Error:", error);
+            alert("An error occurred.");
+        } else if (data.success) {
+            alert("Success: " + data.message);
+            location.reload();
+        } else {
+            alert("Failed: " + data.message);
+        }
+    }
+
+    // 4. Finally, run your load function
     loadUserData();
 </script>
-    
-    <script>
-        function handleWithdraw() {
-            const amount = document.getElementById('withdrawAmount').value;
-            if (!amount || amount < 10000) {
-                alert("Minimum withdrawal is UGX 10,000");
-                return;
-            }
-            alert("Processing withdrawal of UGX " + Number(amount).toLocaleString());
-        }
-    </script>
 </body>
 </html>
 
