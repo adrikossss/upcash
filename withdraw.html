@@ -96,7 +96,7 @@
     async function loadUserData() {
         try {
             // Get the current logged-in user
-            const { data: { user } } = await supabase.auth.getUser();
+            const { data: { user } } = await supabaseClient.auth.getUser();
             
             if (!user) {
                 console.log("No user logged in.");
@@ -104,7 +104,7 @@
             }
 
             // Fetch data from 'userinfo' table using the correct column name 'userid'
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('userinfo')
                 .select('available_balance, telephone')
                 .eq('userid', user.id) // Corrected column name to 'userid'
