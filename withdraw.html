@@ -86,7 +86,46 @@
             </a>
         </div>
     </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // 1. Initialize Supabase
+    const supabaseUrl = 'https://wbodpfbmilhperccgzei.supabase.co';
+    const supabaseKey = 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
+    async function loadUserData() {
+        try {
+            // Get the current logged-in user
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if (!user) {
+                console.log("No user logged in.");
+                return;
+            }
+
+            // Fetch data from 'userinfo' table using the correct column name 'userid'
+            const { data, error } = await supabase
+                .from('userinfo')
+                .select('available_balance, telephone')
+                .eq('userid', user.id) // Corrected column name to 'userid'
+                .single();
+
+            if (data) {
+                // Update the UI with fetched data
+                document.getElementById('availBalance').textContent = 'UGX ' + data.available_balance.toLocaleString();
+                document.getElementById('recipientNum').textContent = data.telephone;
+            } else if (error) {
+                console.error("Supabase Error:", error);
+            }
+        } catch (err) {
+            console.error("Unexpected error:", err);
+        }
+    }
+
+    // Run on page load
+    loadUserData();
+</script>
+    
     <script>
         function handleWithdraw() {
             const amount = document.getElementById('withdrawAmount').value;
