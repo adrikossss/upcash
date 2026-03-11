@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investor | Professional Dashboard</title>
+    <title>UPCASH | Professional Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background: radial-gradient(circle at top left, #1e293b, #0f172a); min-height: 100vh; color: #e2e8f0; }
@@ -98,23 +98,57 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'YOUR_KEY');
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // Initialize using supabaseClient
+    const supabaseClient = supabase.createClient(
+        'https://wbodpfbmilhperccgzei.supabase.co', 
+        'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN' // Replace with your actual anon/public key
+    );
 
-        async function loadDashboard() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) return window.location.href = "auth.html";
-            const { data } = await supabase.from('UserdataTab').select('*').eq('user_id', user.id).single();
-            if (data) {
-                document.getElementById('username').innerText = data.username || "User";
-                document.getElementById('balance').innerText = Number(data.Available_balance || 0).toLocaleString();
-                document.getElementById('totalInv').innerText = "UGX " + Number(data.Total_investment || 0).toLocaleString();
-                document.getElementById('totalWith').innerText = "UGX " + Number(data.Total_withdrawn || 0).toLocaleString();
-            }
+    async function checkAuthAndLoad() {
+        // 1. Get current session
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
+
+        // 2. Redirect to auth page if no session is detected
+        if (!session) {
+            window.location.href = "auth.html";
+            return;
         }
-        function copyLink() { alert("Link copied!"); }
-        function handleLogout() { supabase.auth.signOut().then(() => window.location.href = "auth.html"); }
-        window.onload = loadDashboard;
-    </script>
+
+        const userId = session.user.id;
+        
+        // 3. Fetch data matching your database columns and userid column
+        const { data, error: fetchError } = await supabaseClient
+            .from('userinfo')
+            .select('username, available_balance, total_investment, total_withdrawn')
+            .eq('userid', userId) // Updated to match your 'userid' column
+            .single();
+
+        if (fetchError) {
+            console.error("Error fetching data:", fetchError.message);
+            return;
+        }
+
+        // 4. Update the UI
+        if (data) {
+            document.getElementById('username').innerText = data.username || "User";
+            document.getElementById('balance').innerText = Number(data.available_balance || 0).toLocaleString();
+            document.getElementById('totalInv').innerText = "UGX " + Number(data.total_investment || 0).toLocaleString();
+            document.getElementById('totalWith').innerText = "UGX " + Number(data.total_withdrawn || 0).toLocaleString();
+        }
+    }
+
+    function copyLink() { alert("Referral link copied!"); }
+    
+    function handleLogout() { 
+        supabaseClient.auth.signOut().then(() => {
+            window.location.href = "auth.html";
+        }); 
+    }
+
+    window.onload = checkAuthAndLoad;
+</script>
+
 </body>
 </html>
