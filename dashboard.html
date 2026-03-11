@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investor | Professional Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body { background: radial-gradient(circle at top left, #1e293b, #0f172a); min-height: 100vh; color: #e2e8f0; }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
@@ -17,20 +16,26 @@
 
     <header class="flex items-center justify-between p-5 sticky top-0 bg-slate-900/50 backdrop-blur-md z-50 border-b border-white/5">
         <div class="flex items-center gap-2">
-            <div class="bg-blue-600 p-2 rounded-lg"><i data-lucide="trending-up" class="text-white w-5 h-5"></i></div>
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
             <h1 class="text-xl font-bold tracking-tight">UP<span class="text-blue-500">CASH</span></h1>
-          
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="handleLogout()" class="p-2 hover:bg-red-500/10 rounded-full"><i data-lucide="log-out" class="w-5 h-5 text-slate-400"></i></button>
-            <button class="p-2 hover:bg-slate-800 rounded-full"><i data-lucide="user-circle" class="w-6 h-6 text-slate-400"></i></button>
+            <button onclick="handleLogout()" class="p-2 hover:bg-red-500/10 rounded-full">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+            </button>
+            <button class="p-2 hover:bg-slate-800 rounded-full">
+                <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </button>
         </div>
     </header>
-<div class="px-5 py-4 max-w-lg mx-auto">
-    <p class="text-slate-400 text-sm font-medium">
-        Welcome back, <span class="text-gradient font-bold" id="username">User</span>
-    </p>
-</div>
+
+    <div class="px-5 py-4 max-w-lg mx-auto">
+        <p class="text-slate-400 text-sm font-medium">
+            Welcome back, <span class="text-gradient font-bold" id="username">User</span>
+        </p>
+    </div>
 
     <main class="p-4 max-w-lg mx-auto space-y-6">
         <div class="rounded-3xl p-6 shadow-2xl border border-white/10" style="background: linear-gradient(135deg, #2563eb, #7c3aed);">
@@ -49,15 +54,27 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <button class="btn-gradient font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm"><i data-lucide="arrow-down-to-line" class="w-4 h-4"></i> Deposit</button>
-            <button class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20"><i data-lucide="arrow-up-from-line" class="w-4 h-4 text-purple-400"></i> Withdraw</button>
-            <button onclick="copyLink()" class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20"><i data-lucide="copy" class="w-4 h-4 text-blue-400"></i> Copy Link</button>
-            <a href="https://chat.whatsapp.com/HEusxMonb275LAHnJbooY2" target="_blank" class="bg-[#25D366]/20 border border-[#25D366]/30 font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm text-[#25D366]">
-                <i data-lucide="message-circle" class="w-4 h-4"></i> Community
+            <button class="btn-gradient font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Deposit
+            </button>
+            <button class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20">
+                <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8l4-4m0 0l4 4m-4-4v12m-4 0h8"></path></svg> Withdraw
+            </button>
+            <button onclick="copyLink()" class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20">
+                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg> Referral Link
+            </button>
+            <a href="https://chat.whatsapp.com/HEusxMonb275LAHnJbooY2" target="_blank" class="bg-[#25D366]/20 border border-[#25D366]/30 font-bold py-3 rounded-xl flex flex-col items-center justify-center gap-0.5 text-sm text-[#25D366]">
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg> 
+                    Community
+                </div>
+                <span class="text-[9px] text-slate-300 upercase tracking-wider font-semibold">Get updates</span>
             </a>
         </div>
 
-        <h4 class="text-lg font-bold flex items-center gap-2 text-gradient"><i data-lucide="briefcase" class="w-5 h-5"></i> Investment Plans</h4>
+        <h4 class="text-lg font-bold flex items-center gap-2 text-gradient">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> Investment Plans
+        </h4>
         <div class="glass-card rounded-2xl overflow-hidden">
             <table class="w-full text-left text-sm">
                 <thead class="bg-white/5 text-slate-400 text-xs uppercase">
@@ -73,8 +90,9 @@
         </div>
 
         <div class="flex justify-center pt-4">
-            <a href="mailto:admin@investorpro.com" class="text-slate-500 hover:text-purple-400 transition">
-                <i data-lucide="mail" class="w-5 h-5"></i>
+            <a href="mailto:admin@investorpro.com" class="flex flex-col items-center gap-1 text-slate-500 hover:text-blue-400 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span class="text-[10px] uppercase font-bold tracking-widest">Support</span>
             </a>
         </div>
     </main>
@@ -86,28 +104,17 @@
         async function loadDashboard() {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return window.location.href = "auth.html";
-
             const { data } = await supabase.from('UserdataTab').select('*').eq('user_id', user.id).single();
             if (data) {
+                document.getElementById('username').innerText = data.username || "User";
                 document.getElementById('balance').innerText = Number(data.Available_balance || 0).toLocaleString();
                 document.getElementById('totalInv').innerText = "UGX " + Number(data.Total_investment || 0).toLocaleString();
                 document.getElementById('totalWith').innerText = "UGX " + Number(data.Total_withdrawn || 0).toLocaleString();
             }
-            
-            // Initialize icons here to ensure they always load
-            lucide.createIcons();
         }
-
         function copyLink() { alert("Link copied!"); }
         function handleLogout() { supabase.auth.signOut().then(() => window.location.href = "auth.html"); }
         window.onload = loadDashboard;
-        // Force Icon Refresh
-window.addEventListener('load', function() {
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
-});
-
     </script>
 </body>
 </html>
