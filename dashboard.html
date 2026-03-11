@@ -31,22 +31,16 @@
         </div>
     </header>
 
-    <div class="flex items-center justify-between w-full mt-2 px-1">
-    
-    <p class="text-slate-400 text-sm font-medium">
-        Welcome back, <span class="text-gradient font-bold" id="username">User</span>
-    </p>
-    
-    <span id="verified-badge" class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-        Verified Account
-    </span>
+    <div class="flex items-center justify-between w-full px-5 py-4">
+        <p class="text-slate-400 text-sm font-medium">
+            Welcome back, <span class="text-gradient font-bold" id="username">User</span>
+        </p>
+        <span id="verified-badge" class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+            Verified Account
+        </span>
+    </div>
 
-</div>
-
-
-</div>
-
-    <main class5p-4 max-w-lg mx-auto space-y-6">
+    <main class="p-4 max-w-lg mx-auto space-y-6">
         <div class="rounded-3xl p-6 shadow-2xl border border-white/10" style="background: linear-gradient(135deg, #2563eb, #7c3aed);">
             <p class="text-blue-100/80 text-sm font-medium mb-1">Available Balance</p>
             <h3 class="text-4xl font-black mb-6">UGX <span id="balance">0</span></h3>
@@ -107,57 +101,49 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-    // Initialize using supabaseClient
-    const supabaseClient = supabase.createClient(
-        'https://wbodpfbmilhperccgzei.supabase.co', 
-        'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN' // Replace with your actual anon/public key
-    );
+    <script>
+        const supabaseClient = supabase.createClient(
+            'https://wbodpfbmilhperccgzei.supabase.co', 
+            'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN'
+        );
 
-    async function checkAuthAndLoad() {
-        // 1. Get current session
-        const { data: { session }, error } = await supabaseClient.auth.getSession();
+        async function checkAuthAndLoad() {
+            const { data: { session }, error } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = "auth.html";
+                return;
+            }
 
-        // 2. Redirect to auth page if no session is detected
-        if (!session) {
-            window.location.href = "auth.html";
-            return;
+            const userId = session.user.id;
+            const { data, error: fetchError } = await supabaseClient
+                .from('userinfo')
+                .select('username, available_balance, total_investment, total_withdrawn')
+                .eq('userid', userId)
+                .single();
+
+            if (fetchError) {
+                console.error("Error fetching data:", fetchError.message);
+                return;
+            }
+
+            if (data) {
+                document.getElementById('username').innerText = data.username || "User";
+                document.getElementById('balance').innerText = Number(data.available_balance || 0).toLocaleString();
+                document.getElementById('totalInv').innerText = "UGX " + Number(data.total_investment || 0).toLocaleString();
+                document.getElementById('totalWith').innerText = "UGX " + Number(data.total_withdrawn || 0).toLocaleString();
+            }
         }
 
-        const userId = session.user.id;
+        function copyLink() { alert("Referral link copied!"); }
         
-        // 3. Fetch data matching your database columns and userid column
-        const { data, error: fetchError } = await supabaseClient
-            .from('userinfo')
-            .select('username, available_balance, total_investment, total_withdrawn')
-            .eq('userid', userId) // Updated to match your 'userid' column
-            .single();
-
-        if (fetchError) {
-            console.error("Error fetching data:", fetchError.message);
-            return;
+        function handleLogout() { 
+            supabaseClient.auth.signOut().then(() => {
+                window.location.href = "signin.html";
+            }); 
         }
 
-        // 4. Update the UI
-        if (data) {
-            document.getElementById('username').innerText = data.username || "User";
-            document.getElementById('balance').innerText = Number(data.available_balance || 0).toLocaleString();
-            document.getElementById('totalInv').innerText = "UGX " + Number(data.total_investment || 0).toLocaleString();
-            document.getElementById('totalWith').innerText = "UGX " + Number(data.total_withdrawn || 0).toLocaleString();
-        }
-    }
-
-    function copyLink() { alert("Referral link copied!"); }
-    
-    function handleLogout() { 
-        supabaseClient.auth.signOut().then(() => {
-            window.location.href = "signin.html";
-        }); 
-    }
-
-    window.onload = checkAuthAndLoad;
-</script>
-
+        window.onload = checkAuthAndLoad;
+    </script>
 </body>
-</html>
+    </html>
+
