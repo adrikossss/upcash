@@ -56,7 +56,10 @@
     // Remember to replace these with your actual project keys from Supabase
     const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
 
-    document.getElementById('submitBtn').addEventListener('click', async () => {
+    // Change this line:
+document.getElementById('signinForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // This stops the page from refreshing
+    // ... the rest of your cod
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
