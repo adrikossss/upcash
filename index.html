@@ -78,7 +78,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
+    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
     const form = document.getElementById('signupForm'), usernameInput = document.getElementById('username'), feedback = document.getElementById('username-feedback'), pass1 = document.getElementById('password'), pass2 = document.getElementById('confirmPassword'), passFeed = document.getElementById('pass-feedback'), submitBtn = document.getElementById('submitBtn');
     
     function validateForm() {
@@ -102,7 +102,7 @@
         feedback.innerText = "Checking availability...";
         clearTimeout(window.timer);
         window.timer = setTimeout(async () => {
-            const { data } = await supabase.from('userinfo').select('username').eq('username', sanitized).maybeSingle();
+            const { data } = await supabaseClient.from('userinfo').select('username').eq('username', sanitized).maybeSingle();
             if (data) { feedback.innerText = "Username taken."; usernameInput.classList.add('input-error'); usernameInput.classList.remove('input-success'); }
             else { feedback.innerText = "Username available"; usernameInput.classList.remove('input-error'); usernameInput.classList.add('input-success'); }
             validateForm();
@@ -117,7 +117,7 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         submitBtn.innerText = "Registering...";
-        const { error } = await supabase.auth.signUp({ email: document.getElementById('email').value, password: pass1.value, options: { data: { username: usernameInput.value, telephone: document.getElementById('phone').value } } });
+        const { error } = await supabaseClient.auth.signUp({ email: document.getElementById('email').value, password: pass1.value, options: { data: { username: usernameInput.value, telephone: document.getElementById('phone').value } } });
         if(error) { alert(error.message); submitBtn.innerText = "Register Now"; } 
         else { alert("Success! Please verify your email."); form.reset(); }
     });
