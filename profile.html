@@ -142,40 +142,46 @@
     </div>
 </div>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Initialize using 'supabase'
-    const supabaseClient = supabase.createClient(
+    // Initialize Supabase
+    const supabase = supabase.createClient(
         'https://wbodpfbmilhperccgzei.supabase.co', 
         'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
     );
 
     async function loadProfile() {
-        const { data: { session } } = await supabaseClient.auth.getSession();
+        // 1. Get the current session
+        const { data: { session } } = await supabase.auth.getSession();
         
         if (!session) {
             window.location.href = 'signin.html';
             return;
         }
 
-        // Use 'supabase' to match the initialized variable name
-        const { data, error } = await supabaseClient
+        // 2. Fetch data (Ensure column names match your DB exactly: userid, username, telephone, email)
+        const { data, error } = await supabase
             .from('userinfo')
             .select('username, telephone, email')
             .eq('userid', session.user.id)
             .single();
 
-        if (data) {
-            // IDs here must match the HTML IDs exactly
-            document.getElementById('display-username').innerText = data.username;
-            document.getElementById('display-phone').innerText = data.telephone;
-            document.getElementById('display-email').innerText = data.email;
-        } else if (error) {
+        if (error) {
             console.error("Error loading profile:", error.message);
+            return;
+        }
+
+        if (data) {
+            // 3. Update HTML elements using the IDs defined in the HTML
+            document.getElementById('username').childNodes[0].textContent = data.username + " ";
+            document.getElementById('phone').innerText = data.telephone;
+            document.getElementById('email').innerText = data.email;
         }
     }
 
     loadProfile();
 </script>
+
 
 
 </body>
