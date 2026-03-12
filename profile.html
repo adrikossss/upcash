@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPCASH Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 400px; }
+
+        .back-btn { 
+            font-size: 1.8rem; 
+            cursor: pointer; 
+            margin-bottom: 25px; 
+            color: white; 
+            display: inline-block; 
+            text-decoration: none;
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 35px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-icon-large {
+            font-size: 70px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d2ff, #9d50bb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .username-container {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #00d2ff, #9d50bb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .info-group {
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .info-row i { 
+            font-size: 24px;
+            background: linear-gradient(135deg, #00d2ff, #9d50bb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .affiliate-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #24243e, #0f0c29);
+            border: 1px solid #302b63;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .affiliate-btn:hover {
+            background: linear-gradient(135deg, #00d2ff, #9d50bb);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-circle-left"></i></a>
+    
+    <div class="profile-card">
+        <div class="profile-icon-large"><i class="fas fa-user-circle"></i></div>
+        
+        <div class="username-container">
+            <span id="username">Username</span> <i class="fas fa-check-circle" style="font-size: 0.7em;"></i>
+        </div>
+
+        <div class="info-group">
+            <div class="info-row">
+                <i class="fas fa-phone-square-alt"></i> 256 <span id="phone">...</span>
+            </div>
+            <div class="info-row">
+                <i class="fas fa-envelope-open-text"></i> <span id="email">...</span>
+            </div>
+        </div>
+
+        <button class="affiliate-btn" onclick="location.href='affiliate.html'">
+            <i class="fas fa-users-cog"></i> Affiliates
+        </button>
+    </div>
+</div>
+
+<script>
+    // Initialize Supabase
+    const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+
+    async function loadProfile() {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            const { data } = await supabase
+                .from('userinfo')
+                .select('username, phone, email')
+                .eq('id', user.id)
+                .single();
+
+            if (data) {
+                document.getElementById('username').innerText = data.username;
+                document.getElementById('phone').innerText = data.phone;
+                document.getElementById('email').innerText = data.email;
+            }
+        }
+    }
+    loadProfile();
+</script>
+
+</body>
+</html>
+  
