@@ -55,17 +55,33 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Initialize Supabase
-    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
+    // 1. Initialize Supabase
+    const supabaseClient = supabase.createClient(
+        'https://wbodpfbmilhperccgzei.supabase.co', 
+        'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN'
+    );
 
+    // 2. Auth State Listener (Handles automatic redirect from email links)
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN') {
+            console.log("User successfully signed in via email link!");
+            window.location.href = 'dashboard.html';
+        }
+    });
+
+    // 3. Manual Sign In Logic
     const submitBtn = document.getElementById('submitBtn');
-
-    // Manual click listener for the button
+    
     submitBtn.addEventListener('click', async () => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // Feedback to user
+        // Form Validation Check
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
+
         submitBtn.innerText = "Signing in...";
         submitBtn.disabled = true;
 
@@ -77,16 +93,18 @@
 
             if (error) throw error;
 
-            // Success - Redirect
+            // Success: Handled automatically by the Auth State Listener above, 
+            // but we add a redirect here as a fallback.
             window.location.href = "dashboard.html";
             
         } catch (err) {
+            console.error("Login Error:", err);
             alert("Login Failed: " + err.message);
-            // Reset button on failure
             submitBtn.innerText = "Sign In";
             submitBtn.disabled = false;
         }
     });
 </script>
+
 </body>
 </html>
