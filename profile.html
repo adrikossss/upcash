@@ -121,18 +121,19 @@
     
     <div class="profile-card">
         <div class="profile-icon-large"><i class="fas fa-user-circle"></i></div>
-        
-        <div class="username-container">
-            John Doe <i class="fas fa-circle-check" style="color: #ff00cc; font-size: 0.7em;"></i>
-        </div>
+        <div class="username-container" id="display-username">
+    John Doe <i class="fas fa-circle-check" style="color: #ff00cc; font-size: 0.7em;"></i>
+</div>
 
-        <div class="info-group">
-            <div class="info-row">
-                <i class="fas fa-mobile-alt"></i> Phone
-            </div>
-            <div class="info-row">
-                <i class="fas fa-envelope"></i> Email
-            </div>
+<div class="info-group">
+    <div class="info-row">
+        <i class="fas fa-mobile-alt"></i> <span id="display-phone">Phone</span>
+    </div>
+    <div class="info-row">
+        <i class="fas fa-envelope"></i> <span id="display-email">Email</span>
+    </div>
+</div>
+
         </div>
 
         <button class="affiliate-btn" onclick="location.href='affiliate.html'">
