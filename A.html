@@ -96,7 +96,7 @@
         feedback.innerText = "Checking availability...";
         clearTimeout(window.timer);
         window.timer = setTimeout(async () => {
-            const { data } = await supabase.from('userinfo').select('username').eq('username', sanitized).maybeSingle();
+            const { data } = await supabaseClient.from('userinfo').select('username').eq('username', sanitized).maybeSingle();
             if (data) { feedback.innerText = "Username taken."; usernameInput.classList.add('input-error'); usernameInput.classList.remove('input-success'); }
             else { feedback.innerText = "Username available"; usernameInput.classList.remove('input-error'); usernameInput.classList.add('input-success'); }
             validateForm();
