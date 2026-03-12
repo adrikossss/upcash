@@ -81,16 +81,17 @@
         // 1. Sign up the user
         // We pass the referral code in the metadata so your trigger can log it
         const { data, error } = await supabaseClient.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    username: username,
-                    telephone: phone,
-                    referred_by: referrer // This links the referral!
-                }
-            }
-        });
+    email: email,
+    password: password,
+    options: {
+        data: {
+            username: username,    // Saved to raw_user_meta_data
+            telephone: phone,      // Saved to raw_user_meta_data
+            referred_by: referrer  // Saved to raw_user_meta_data
+        }
+    }
+});
+
 
         if (error) {
             alert("Registration Failed: " + error.message);
