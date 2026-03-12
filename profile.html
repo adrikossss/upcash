@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPCASH Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
+            /* Brighter, high-contrast gradient for text */
+            --text-gradient: linear-gradient(to right, #00f2fe, #ff00cc);
         }
 
         body {
             margin: 0;
             padding: 20px;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: white;
             min-height: 100vh;
@@ -23,149 +25,159 @@
             justify-content: center;
         }
 
-        .container { width: 100%; max-width: 400px; }
+        .container { width: 100%; max-width: 400px; position: relative; }
 
         .back-btn { 
-            font-size: 1.8rem; 
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 1.5rem; 
             cursor: pointer; 
-            margin-bottom: 25px; 
             color: white; 
-            display: inline-block; 
             text-decoration: none;
+            opacity: 0.8;
+            transition: 0.3s;
         }
 
+        .back-btn:hover { opacity: 1; }
+
         .profile-card {
+            margin-top: 50px;
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 35px;
+            border-radius: 24px;
             padding: 40px;
             text-align: center;
             box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
         }
 
         .profile-icon-large {
-            font-size: 70px;
+            font-size: 64px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #00d2ff, #9d50bb);
+            background: var(--text-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .username-container {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             margin-bottom: 30px;
-            background: linear-gradient(to right, #00d2ff, #9d50bb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--text-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .info-group {
-            margin-bottom: 30px;
-        }
+        .info-group { margin-bottom: 30px; }
 
         .info-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
-            padding: 18px 0;
+            justify-content: flex-start;
+            gap: 15px;
+            padding: 16px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .info-row i { 
-            font-size: 24px;
-            background: linear-gradient(135deg, #00d2ff, #9d50bb);
+            font-family: 'Inter', monospace;
+            font-size: 0.95rem;
+            background: var(--text-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
+        .info-row i { 
+            font-size: 18px;
+            color: #00f2fe; /* Bright icon color to match */
+        }
+
         .affiliate-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             border: none;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #24243e, #0f0c29);
-            border: 1px solid #302b63;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 1.1rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
 
-        .affiliate-btn:hover {
-            background: linear-gradient(135deg, #00d2ff, #9d50bb);
-        }
+        .affiliate-btn:hover { opacity: 0.9; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-circle-left"></i></a>
+    <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
     
     <div class="profile-card">
         <div class="profile-icon-large"><i class="fas fa-user-circle"></i></div>
         
         <div class="username-container">
-            <span id="username">Loading...</span> <i class="fas fa-check-circle" style="font-size: 0.7em;"></i>
+            John Doe <i class="fas fa-circle-check" style="color: #ff00cc; font-size: 0.7em;"></i>
         </div>
 
         <div class="info-group">
             <div class="info-row">
-                <i class="fas fa-phone-square-alt"></i> 256 <span id="phone">...</span>
+                <i class="fas fa-mobile-alt"></i> 0Phone
             </div>
             <div class="info-row">
-                <i class="fas fa-envelope-open-text"></i> <span id="email">...</span>
+                <i class="fas fa-envelope"></i> Email
             </div>
         </div>
 
         <button class="affiliate-btn" onclick="location.href='affiliate.html'">
-            <i class="fas fa-users-cog"></i> Affiliates
+            <i class="fas fa-users-cog"></i>  Affiliates
         </button>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-<script>
-    // Initialize Supabase Client
-    const supabaseClient = supabase.createClient(
-        'https://wbodpfbmilhperccgzei.supabase.co', 
-        'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
-    );
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Securely initialize Supabase
+        const supabaseClient = supabase.createClient(
+            'https://wbodpfbmilhperccgzei.supabase.co', 
+            'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
+        );
 
-    async function checkAuthAndLoad() {
-        // Get the currently logged-in user
-        const { data: { session } } = await supabaseClient.auth.getSession();
-        
-        if (!session) {
-            window.location.href = 'signin.html';
-            return;
+        async function loadProfile() {
+            // 1. Get the current authenticated user
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
+            if (!session) {
+                window.location.href = 'signin.html';
+                return;
+            }
+
+            // 2. Query 'userinfo' for data matching the current user's ID
+            const { data, error } = await supabaseClient
+                .from('userinfo')
+                .select('username, telephone, email')
+                .eq('userid', session.user.id)
+                .single();
+
+            // 3. Update the HTML elements if data is found
+            if (data) {
+                document.getElementById('display-username').innerText = data.username;
+                document.getElementById('display-phone').innerText = data.telephone;
+                document.getElementById('display-email').innerText = data.email;
+            } else if (error) {
+                console.error("Error loading profile:", error.message);
+            }
         }
 
-        // Fetch user data from 'userinfo' table where userid matches session id
-        const { data, error } = await supabaseClient
-            .from('userinfo')
-            .select('username, telephone, email')
-            .eq('userid', session.user.id) 
-            .single();
-
-        if (data) {
-            document.getElementById('username').innerText = data.username;
-            document.getElementById('phone').innerText = data.telephone;
-            document.getElementById('email').innerText = data.email;
-        } else if (error) {
-            console.error("Error loading profile:", error.message);
-        }
-    }
-
-    checkAuthAndLoad();
-</script>
+        loadProfile();
+    </script>
+    
 
 </body>
 </html>
+
