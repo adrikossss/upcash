@@ -130,17 +130,18 @@
         </button>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 <script>
     // Initialize Supabase Client
-    const supabase = supabase.createClient(
+    const supabaseClient = supabase.createClient(
         'https://wbodpfbmilhperccgzei.supabase.co', 
         'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
     );
 
     async function checkAuthAndLoad() {
         // Get the currently logged-in user
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         
         if (!session) {
             window.location.href = 'signin.html';
@@ -148,7 +149,7 @@
         }
 
         // Fetch user data from 'userinfo' table where userid matches session id
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('userinfo')
             .select('username, telephone, email')
             .eq('userid', session.user.id) 
