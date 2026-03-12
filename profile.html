@@ -145,14 +145,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // Initialize Supabase
-    const supabase = supabase.createClient(
+    const supabaseClient = supabase.createClient(
         'https://wbodpfbmilhperccgzei.supabase.co', 
         'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
     );
 
     async function loadProfile() {
         // 1. Get the current session
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         
         if (!session) {
             window.location.href = 'signin.html';
@@ -160,7 +160,7 @@
         }
 
         // 2. Fetch data (Ensure column names match your DB exactly: userid, username, telephone, email)
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('userinfo')
             .select('username, telephone, email')
             .eq('userid', session.user.id)
