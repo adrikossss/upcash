@@ -54,20 +54,15 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Initialize using a unique constant name to avoid conflicts
-    const supabaseClient = supabase.createClient(
-        'https://wbodpfbmilhperccgzei.supabase.co', 
-        'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN'
-    );
+    // 1. Initialize Supabase
+    const supabaseClient = supabase.createClient('YOUR_URL', 'YOUR_KEY');
 
+    // 2. Define the form variable
     const form = document.getElementById('signupForm');
     
-    // Capture referral code from URL once when the page loads
-    const urlParams = new URLSearchParams(window.location.search);
-    const referrer = urlParams.get('ref');
-
+    // 3. Add the Event Listener (The code you were asking about)
     form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // This stops the page from reloading
         
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.innerText = "Registering...";
@@ -78,21 +73,22 @@
         const username = document.getElementById('username').value;
         const phone = document.getElementById('phone').value;
 
-        // 1. Sign up the user
-        // We pass the referral code in the metadata so your trigger can log it
+        // Capture referral code from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const referrer = urlParams.get('ref');
+
+        // Sign up the user
         const { data, error } = await supabaseClient.auth.signUp({
-  email: email,
-  password: password,
-  options: {
-    data: {
-      username: username,
-      telephone: phone,
-      referred_by: referrer // Capturing your referral code
-    }
-  }
-});
-
-
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    username: username,
+                    telephone: phone,
+                    referred_by: referrer 
+                }
+            }
+        });
 
         if (error) {
             alert("Registration Failed: " + error.message);
@@ -101,22 +97,13 @@
             return;
         }
 
-        // ... (Keep your signUp call above this part)
+        // Success!
+        alert("Registration successful! Check your email to verify your account.");
+        submitBtn.innerText = "Register Now";
+        submitBtn.disabled = false;
+        form.reset();
+    });
+</script>
 
-if (error) {
-    alert("Registration Failed: " + error.message);
-    submitBtn.innerText = "Register Now";
-    submitBtn.disabled = false;
-    return;
-}
-
-// Since we are using a Database Trigger now, 
-// the database creates the userinfo record for you automatically!
-alert("Registration successful! Check your email to verify your account.");
-
-submitBtn.innerText = "Register Now";
-submitBtn.disabled = false;
-form.reset();
-                    </script>
 </body>
 </html>
