@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPCASH | Create Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; font-family: sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; max-width: 400px; padding: 2rem; border-radius: 2rem; }
+    </style>
+</head>
+<body>
+
+<div class="glass-card shadow-2xl">
+    <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h1 class="text-xl font-bold text-white tracking-wider">UP<span class="text-blue-500">CASH</span></h1>
+        </div>
+        <h2 class="text-lg font-semibold text-white">Welcome to our Business Platform</h2>
+        <p class="text-sm text-slate-400 mt-1">Automated instant withdraws and deposits.</p>
+    </div>
+
+    <form id="signupForm" class="space-y-4" onsubmit="return false;">
+    
+        <input type="text" id="username" required placeholder="Username" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500">
+        <input type="email" id="email" required placeholder="Email Address" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500">
+        <div class="flex items-center bg-slate-900/50 rounded-xl border border-slate-700 overflow-hidden">
+            <span class="px-4 py-4 text-white font-medium border-r border-slate-700">🇺🇬 +256</span>
+            <input type="tel" id="phone" required placeholder="7XX XXX XXX" class="w-full p-4 bg-transparent text-white outline-none">
+        </div>
+        <input type="password" id="password" required placeholder="Create Password" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none focus:border-blue-500">
+        <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:opacity-90 transition">Register Now</button>
+    </form>
+
+    <div class="mt-6 text-center space-y-3">
+        <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition">Forgot password?</a>
+        <p class="text-sm text-slate-500">Already have an account? 
+            <a href="signin.html" class="text-blue-500 font-bold hover:underline">Sign In</a>
+        </p>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+        <a href="mailto:topinvestor@gmail.com" class="inline-flex items-center gap-2 text-slate-500 hover:text-blue-400 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <span class="text-xs">Contact support</span>
+        </a>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // Initialize using a unique constant name to avoid conflicts
+    const supabaseClient = supabase.createClient(
+        'https://wbodpfbmilhperccgzei.supabase.co', 
+        'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN'
+    );
+
+    const form = document.getElementById('signupForm');
+    
+    // Capture referral code from URL once when the page loads
+    const urlParams = new URLSearchParams(window.location.search);
+    const referrer = urlParams.get('ref');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = "Registering...";
+        submitBtn.disabled = true;
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const username = document.getElementById('username').value;
+        const phone = document.getElementById('phone').value;
+
+        // 1. Sign up the user
+        // We pass the referral code in the metadata so your trigger can log it
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    username: username,
+                    telephone: phone,
+                    referred_by: referrer // This links the referral!
+                }
+            }
+        });
+
+        if (error) {
+            alert("Registration Failed: " + error.message);
+            submitBtn.innerText = "Register Now";
+            submitBtn.disabled = false;
+            return;
+        }
+
+        // 2. Insert into 'userinfo' table (if needed for your manual records)
+        // Note: You can also use a trigger for this, but this is your existing flow:
+        const { error: dbError } = await supabaseClient
+            .from('userinfo')
+            .insert([{ 
+                userid: data.user.id, 
+                username: username, 
+                telephone: phone, 
+                email: email 
+            }]);
+
+        if (dbError) {
+            alert("Account created, but database record failed: " + dbError.message);
+        } else {
+            alert("Registration successful! Check your email to verify.");
+        }
+
+        submitBtn.innerText = "Register Now";
+        submitBtn.disabled = false;
+        form.reset();
+    });
+</script>
+
+</body>
+</html>
