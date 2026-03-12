@@ -64,37 +64,99 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
-    const form = document.getElementById('signupForm'), usernameInput = document.getElementById('username'), feedback = document.getElementById('username-feedback'), pass1 = document.getElementById('password'), pass2 = document.getElementById('confirmPassword'), passFeed = document.getElementById('pass-feedback'), submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('signupForm');
+    const usernameInput = document.getElementById('username');
+    const feedback = document.getElementById('username-feedback');
+    const pass1 = document.getElementById('password');
+    const pass2 = document.getElementById('confirmPassword');
+    const passFeed = document.getElementById('pass-feedback');
+    const submitBtn = document.getElementById('submitBtn');
     let debounceTimer;
 
-    // Username Logic
-    usernameInput.addEventListener('input', () => {
-        const val = usernameInput.value;
-        if (!/^[a-z]*$/.test(val)) { feedback.innerText = "Only lowercase letters allowed."; feedback.style.color = "#ef4444"; usernameInput.classList.add('input-error'); return; }
-        if (val.length < 4) { feedback.innerText = "Minimum 4 characters."; feedback.style.color = "#94a3b8"; usernameInput.classList.remove('input-error', 'input-success'); return; }
+    // Username Logic with strict sanitization
+    usernameInput.addEventListener('input', (e) => {
+        // 1. Strict Sanitization: Strip anything that isn't a lowercase letter
+        const originalValue = e.target.value;
+        const sanitized = originalValue.toLowerCase().replace(/[^a-z]/g, '');
         
-        feedback.innerText = "Checking availability..."; feedback.style.color = "#eab308";
+        if (originalValue !== sanitized) {
+            usernameInput.value = sanitized;
+            feedback.innerText = "Only lowercase letters allowed.";
+            feedback.style.color = "#ef4444";
+        }
+
+        const val = usernameInput.value;
+
+        // 2. Length check
+        if (val.length < 4) {
+            feedback.innerText = val.length === 0 ? "Enter a username (min 4 chars)" : "Too short (min 4)";
+            feedback.style.color = "#94a3b8";
+            usernameInput.classList.remove('input-error', 'input-success');
+            submitBtn.disabled = true;
+            return;
+        }
+
+        // 3. Database Check
+        feedback.innerText = "Checking availability...";
+        feedback.style.color = "#eab308";
+        
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(async () => {
-            const { data } = await supabase.from('userinfo').select('username').eq('username', val).maybeSingle();
-            if (data) { feedback.innerText = "Username taken."; feedback.style.color = "#ef4444"; usernameInput.classList.add('input-error'); }
-            else { feedback.innerText = "Username available"; feedback.style.color = "#22c55e"; usernameInput.classList.remove('input-error'); usernameInput.classList.add('input-success'); }
+            const { data, error } = await supabase.from('userinfo').select('username').eq('username', val).maybeSingle();
+            
+            if (error) {
+                console.error("Supabase Error:", error);
+                feedback.innerText = "Check connection...";
+            } else if (data) {
+                feedback.innerText = "Username taken.";
+                feedback.style.color = "#ef4444";
+                usernameInput.classList.add('input-error');
+                usernameInput.classList.remove('input-success');
+                submitBtn.disabled = true;
+            } else {
+                feedback.innerText = "Username available";
+                feedback.style.color = "#22c55e";
+                usernameInput.classList.remove('input-error');
+                usernameInput.classList.add('input-success');
+                submitBtn.disabled = false;
+            }
         }, 500);
     });
 
     // Password Logic
     [pass1, pass2].forEach(el => el.addEventListener('input', () => {
-        if(pass2.value !== "" && pass1.value !== pass2.value) { passFeed.innerText = "Passwords do not match"; passFeed.style.color = "#ef4444"; }
-        else { passFeed.innerText = ""; }
+        if(pass2.value !== "" && pass1.value !== pass2.value) { 
+            passFeed.innerText = "Passwords do not match"; 
+            passFeed.style.color = "#ef4444"; 
+            submitBtn.disabled = true;
+        } else { 
+            passFeed.innerText = ""; 
+            submitBtn.disabled = false;
+        }
     }));
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if(pass1.value !== pass2.value) return alert("Passwords do not match!");
         submitBtn.innerText = "Registering...";
-        const { error } = await supabase.auth.signUp({ email: document.getElementById('email').value, password: pass1.value, options: { data: { username: usernameInput.value, telephone: document.getElementById('phone').value } } });
-        if(error) { alert(error.message); submitBtn.innerText = "Register Now"; } else { alert("Success! Please verify your email."); form.reset(); }
+        const { error } = await supabase.auth.signUp({ 
+            email: document.getElementById('email').value, 
+            password: pass1.value, 
+            options: { 
+                data: { 
+                    username: usernameInput.value, 
+                    telephone: document.getElementById('phone').value 
+                } 
+            } 
+        });
+        if(error) { 
+            alert(error.message); 
+            submitBtn.innerText = "Register Now"; 
+        } else { 
+            alert("Success! Please verify your email."); 
+            form.reset(); 
+        }
     });
 </script>
+
 </body>
 </html>
