@@ -54,7 +54,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
+    const supabaseClient = supabase.createClient(
+        'https://wbodpfbmilhperccgzei.supabase.co', 
+        'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN'
+    );
 
     const form = document.getElementById('signupForm');
     
@@ -70,6 +73,9 @@
         const username = document.getElementById('username').value;
         const phone = document.getElementById('phone').value;
 
+        // Sign up the user; Supabase stores username and telephone in the user metadata.
+        // A Database Trigger on your Supabase backend will automatically 
+        // copy this metadata into your 'userinfo' table.
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
@@ -87,10 +93,12 @@
             submitBtn.disabled = false;
         } else {
             alert("Registration successful! Check your email to verify your account.");
+            form.reset();
             submitBtn.innerText = "Register Now";
             submitBtn.disabled = false;
         }
     });
 </script>
+
 </body>
 </html>
