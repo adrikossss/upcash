@@ -131,28 +131,37 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
 <script>
-    // Initialize Supabase
-    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
+    const supabaseClient = supabase.createClient(
+        'https://wbodpfbmilhperccgzei.supabase.co', 
+        'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
+    );
 
-    async function loadProfile() {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (user) {
-            const { data } = await supabaseClient
-                .from('userinfo')
-                .select('username, phone, email')
-                .eq('id', user.id)
-                .single();
+    async function checkAuthAndLoad() {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        
+        if (!session) {
+            window.location.href = 'auth.html';
+            return;
+        }
 
-            if (data) {
-                document.getElementById('username').innerText = data.username;
-                document.getElementById('phone').innerText = data.phone;
-                document.getElementById('email').innerText = data.email;
-            }
+        const userId = session.user.id;
+        const { data, error } = await supabaseClient
+            .from('userinfo')
+            .select('username, phone, email')
+            .eq('userid', userId) 
+            .single();
+
+        if (data) {
+            document.getElementById('username').innerText = data.username;
+            document.getElementById('phone').innerText = data.phone;
+            document.getElementById('email').innerText = data.email;
+        } else if (error) {
+            console.error("Error fetching user:", error);
         }
     }
-    loadProfile();
+
+    checkAuthAndLoad();
 </script>
 
 </body>
