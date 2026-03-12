@@ -148,7 +148,7 @@
         const userId = session.user.id;
         const { data, error } = await supabaseClient
             .from('userinfo')
-            .select('username, phone, email')
+            .select('username, telephone, email')
             .eq('userid', userId) 
             .single();
 
