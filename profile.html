@@ -146,6 +146,7 @@
         }
 
         const userId = session.user.id;
+        // Fetching with your specific column names: userid, telephone, email
         const { data, error } = await supabaseClient
             .from('userinfo')
             .select('username, telephone, email')
@@ -154,15 +155,17 @@
 
         if (data) {
             document.getElementById('username').innerText = data.username;
+            // Mapping the database 'telephone' to your HTML 'phone' element
             document.getElementById('phone').innerText = data.telephone;
             document.getElementById('email').innerText = data.email;
         } else if (error) {
-            console.error("Error fetching user:", error);
+            console.error("Error fetching user data:", error);
         }
     }
 
     checkAuthAndLoad();
 </script>
+
 
 </body>
 </html>
