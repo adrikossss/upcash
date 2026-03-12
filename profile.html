@@ -113,7 +113,7 @@
         <div class="profile-icon-large"><i class="fas fa-user-circle"></i></div>
         
         <div class="username-container">
-            <span id="username">Username</span> <i class="fas fa-check-circle" style="font-size: 0.7em;"></i>
+            <span id="username">username</span> <i class="fas fa-check-circle" style="font-size: 0.7em;"></i>
         </div>
 
         <div class="info-group">
@@ -121,7 +121,7 @@
                 <i class="fas fa-phone-square-alt"></i> 256 <span id="phone">...</span>
             </div>
             <div class="info-row">
-                <i class="fas fa-envelope-open-text"></i> <span id="email">...</span>
+                <i class="fas fa-envelope-open-text"></i> <span id="email">email</span>
             </div>
         </div>
 
@@ -133,12 +133,12 @@
 
 <script>
     // Initialize Supabase
-    const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
 
     async function loadProfile() {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await supabaseClient.auth.getUser();
         if (user) {
-            const { data } = await supabase
+            const { data } = await supabaseClient
                 .from('userinfo')
                 .select('username, phone, email')
                 .eq('id', user.id)
