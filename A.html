@@ -65,14 +65,14 @@
         <p class="text-slate-600 text-xs mb-3">© UPCASH Business Platform 2026</p>
         <a href="mailto:support@upcash.com" class="inline-flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-lg text-slate-300 hover:text-blue-400 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            <span class="text-xs">Email Support</span>
+            <span class="text-xs">Support</span>
         </a>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    const supabase = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
+    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
     const form = document.getElementById('signupForm'), usernameInput = document.getElementById('username'), feedback = document.getElementById('username-feedback'), pass1 = document.getElementById('password'), pass2 = document.getElementById('confirmPassword'), passFeed = document.getElementById('pass-feedback'), submitBtn = document.getElementById('submitBtn');
     
     function validateForm() {
@@ -111,7 +111,7 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         submitBtn.innerText = "Registering...";
-        const { error } = await supabase.auth.signUp({ email: document.getElementById('email').value, password: pass1.value, options: { data: { username: usernameInput.value, telephone: document.getElementById('phone').value } } });
+        const { error } = await supabaseClient.auth.signUp({ email: document.getElementById('email').value, password: pass1.value, options: { data: { username: usernameInput.value, telephone: document.getElementById('phone').value } } });
         if(error) { alert(error.message); submitBtn.innerText = "Register Now"; } 
         else { alert("Success! Check your email."); form.reset(); }
     });
