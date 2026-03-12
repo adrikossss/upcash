@@ -26,13 +26,12 @@
                 <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
             </button>
             <a href="profile.html" class="block">
-    <button class="p-2 hover:bg-slate-800 rounded-full">
-        <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-    </button>
-</a>
-
+                <button class="p-2 hover:bg-slate-800 rounded-full">
+                    <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
+            </a>
         </div>
     </header>
 
@@ -75,7 +74,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <button onclick="copyLink()" class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20">
+            <button onclick="copyLink()" id="referral-btn" class="glass-card font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm border-white/20">
                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg> Referral Link
             </button>
             <a href="https://chat.whatsapp.com/HEusxMonb275LAHnJbooY2" target="_blank" class="bg-[#25D366]/20 border border-[#25D366]/30 font-bold py-3 rounded-xl flex flex-col items-center justify-center gap-0.5 text-sm text-[#25D366]">
@@ -86,31 +85,7 @@
                 <span class="text-[9px] text-slate-300 upercase tracking-wider font-semibold">Get updates</span>
             </a>
         </div>
-
-        <h4 class="text-lg font-bold flex items-center gap-2 text-gradient">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> Investment Plans
-        </h4>
-        <div class="glass-card rounded-2xl overflow-hidden">
-            <table class="w-full text-left text-sm">
-                <thead class="bg-white/5 text-slate-400 text-xs uppercase">
-                    <tr><th class="p-4">Plan</th><th class="p-4 text-center">ROI</th><th class="p-4 text-center">Days</th><th class="p-4 text-right">Min</th></tr>
-                </thead>
-                <tbody class="divide-y divide-white/5">
-                    <tr><td class="p-4 font-bold text-blue-400">Silver</td><td class="p-4 text-center">15%</td><td class="p-4 text-center">7</td><td class="p-4 text-right font-medium">50k</td></tr>
-                    <tr><td class="p-4 font-bold text-purple-400">Gold</td><td class="p-4 text-center">40%</td><td class="p-4 text-center">30</td><td class="p-4 text-right font-medium">200k</td></tr>
-                    <tr><td class="p-4 font-bold text-pink-400">Diamond</td><td class="p-4 text-center">100%</td><td class="p-4 text-center">90</td><td class="p-4 text-right font-medium">1M</td></tr>
-                    <tr><td class="p-4 font-bold text-orange-400">VIP</td><td class="p-4 text-center">250%</td><td class="p-4 text-center">180</td><td class="p-4 text-right font-medium">5M</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="flex justify-center pt-4">
-            <a href="mailto:admin@investorpro.com" class="flex flex-col items-center gap-1 text-slate-500 hover:text-blue-400 transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                <span class="text-[10px] uppercase font-bold tracking-widest">Support</span>
-            </a>
-        </div>
-    </main>
+        </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -120,7 +95,7 @@
         );
 
         async function checkAuthAndLoad() {
-            const { data: { session }, error } = await supabaseClient.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
                 window.location.href = "auth.html";
                 return;
@@ -146,7 +121,27 @@
             }
         }
 
-        function copyLink() { alert("Referral link copied!"); }
+        async function copyLink() {
+            const btn = document.getElementById('referral-btn');
+            const originalText = btn.innerText;
+
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) return;
+
+            const { data } = await supabaseClient
+                .from('userinfo')
+                .select('username')
+                .eq('userid', session.user.id)
+                .single();
+
+            if (data) {
+                const link = `https://github.com/adrikossss/upcash/register.html?ref=${data.username}`;
+                navigator.clipboard.writeText(link).then(() => {
+                    btn.innerText = "Copied!";
+                    setTimeout(() => { btn.innerText = originalText; }, 2000);
+                });
+            }
+        }
         
         function handleLogout() { 
             supabaseClient.auth.signOut().then(() => {
@@ -158,3 +153,4 @@
     </script>
 </body>
 </html>
+
