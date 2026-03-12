@@ -99,28 +99,22 @@
             return;
         }
 
-        // 2. Insert into 'userinfo' table (if needed for your manual records)
-        // Note: You can also use a trigger for this, but this is your existing flow:
-        const { error: dbError } = await supabaseClient
-            .from('userinfo')
-            .insert([{ 
-                userid: data.user.id, 
-                username: username, 
-                telephone: phone, 
-                email: email 
-            }]);
+        // ... (Keep your signUp call above this part)
 
-        if (dbError) {
-            alert("Account created, but database record failed: " + dbError.message);
-        } else {
-            alert("Registration successful! Check your email to verify.");
-        }
+if (error) {
+    alert("Registration Failed: " + error.message);
+    submitBtn.innerText = "Register Now";
+    submitBtn.disabled = false;
+    return;
+}
 
-        submitBtn.innerText = "Register Now";
-        submitBtn.disabled = false;
-        form.reset();
-    });
-</script>
+// Since we are using a Database Trigger now, 
+// the database creates the userinfo record for you automatically!
+alert("Registration successful! Check your email to verify your account.");
 
+submitBtn.innerText = "Register Now";
+submitBtn.disabled = false;
+form.reset();
+                    </script>
 </body>
 </html>
