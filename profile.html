@@ -163,7 +163,7 @@
         const { data, error } = await supabaseClient
             .from('userinfo')
             .select('username, telephone, email')
-            .eq('userid', session.user.id)
+            .eq('userid', userId)
             .single();
 
         if (error) {
