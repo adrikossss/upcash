@@ -141,42 +141,41 @@
     </div>
 </div>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        // Securely initialize Supabase
-        const supabaseClient = supabase.createClient(
-            'https://wbodpfbmilhperccgzei.supabase.co', 
-            'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
-        );
+<script>
+    // Initialize using 'supabase'
+    const supabase = supabase.createClient(
+        'https://wbodpfbmilhperccgzei.supabase.co', 
+        'sb_publishable_CTQy3-UTfBu_U8k13IMLXQ_7Ki4guKN'
+    );
 
-        async function loadProfile() {
-            // 1. Get the current authenticated user
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            
-            if (!session) {
-                window.location.href = 'signin.html';
-                return;
-            }
-
-            // 2. Query 'userinfo' for data matching the current user's ID
-            const { data, error } = await supabaseClient
-                .from('userinfo')
-                .select('username, telephone, email')
-                .eq('userid', userId)
-                .single();
-
-            // 3. Update the HTML elements if data is found
-            if (data) {
-                document.getElementById('display-username').innerText = data.username;
-                document.getElementById('display-phone').innerText = data.telephone;
-                document.getElementById('display-email').innerText = data.email;
-            } else if (error) {
-                console.error("Error loading profile:", error.message);
-            }
+    async function loadProfile() {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session) {
+            window.location.href = 'signin.html';
+            return;
         }
 
-        loadProfile();
-    </script>
-    
+        // Use 'supabase' to match the initialized variable name
+        const { data, error } = await supabase
+            .from('userinfo')
+            .select('username, telephone, email')
+            .eq('userid', session.user.id)
+            .single();
+
+        if (data) {
+            // IDs here must match the HTML IDs exactly
+            document.getElementById('display-username').innerText = data.username;
+            document.getElementById('display-phone').innerText = data.telephone;
+            document.getElementById('display-email').innerText = data.email;
+        } else if (error) {
+            console.error("Error loading profile:", error.message);
+        }
+    }
+
+    loadProfile();
+</script>
+
 
 </body>
 </html>
