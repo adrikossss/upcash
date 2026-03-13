@@ -3,79 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestorPRO | Access</title>
+    <title>UPCASH | Sign In</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2rem; width: 100%; max-width: 400px; padding: 2rem; }
-        /* The key to preventing layout issues */
-        .is-hidden { display: none !important; }
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; font-family: 'Segoe UI', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); width: 100%; max-width: 400px; padding: 2rem; border-radius: 2rem; }
+        .input-group { position: relative; margin-bottom: 1rem; }
+        .input-icon { position: absolute; left: 1rem; top: 1rem; color: #64748b; }
+        .field { width: 100%; padding: 0.75rem 0.75rem 0.75rem 3rem; border-radius: 0.75rem; background: rgba(15, 23, 42, 0.5); border: 1px solid #334155; color: white; outline: none; transition: all 0.3s; }
+        .field:focus { border-color: #3b82f6; }
     </style>
 </head>
 <body>
 
-<div class="glass shadow-2xl">
-    <div class="flex items-center justify-center gap-2 mb-8">
-        <div class="bg-blue-600 p-2 rounded-lg">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+<div class="glass-card shadow-2xl">
+    <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="bg-blue-600 p-2 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            </div>
+            <h1 class="text-xl font-bold text-white tracking-wider">UP<span class="text-blue-500">CASH</span></h1>
         </div>
-        <h1 class="text-xl font-bold text-white tracking-wider">INVESTOR<span class="text-blue-500">PRO</span></h1>
+        <h2 class="text-lg font-semibold text-white">Welcome back</h2>
+        <p class="text-sm text-slate-400 mt-1">Automated instant withdraws and deposits.</p>
     </div>
 
-    <h2 id="formTitle" class="text-white text-2xl font-bold text-center mb-6">Welcome Back</h2>
-
-    <form id="authForm" class="space-y-4">
-        <div id="signupFields" class="is-hidden space-y-4">
-            <input type="text" id="username" placeholder="Username" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none">
-            <div class="flex items-center bg-slate-900/50 rounded-xl border border-slate-700 overflow-hidden">
-                <span class="px-4 py-4 text-white font-medium border-r border-slate-700">🇺🇬 +256</span>
-                <input type="tel" id="phone" placeholder="7XXXXXXXX" class="w-full p-4 bg-transparent text-white outline-none">
-            </div>
+    <form id="signinForm" class="space-y-4">
+        <div class="input-group">
+            <svg class="w-5 h-5 input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <input type="email" id="email" required placeholder="Email Address" class="field">
         </div>
 
-        <input type="email" id="email" required placeholder="Email Address" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none">
-        <input type="password" id="password" required placeholder="Password" class="w-full p-4 rounded-xl bg-slate-900/50 border border-slate-700 text-white outline-none">
-        
-        <button id="mainBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold transition">Sign In</button>
+        <div class="input-group">
+            <svg class="w-5 h-5 input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <input type="password" id="password" required placeholder="Password" class="field">
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold hover:opacity-90 transition">Sign In</button>
     </form>
 
     <div class="mt-6 text-center space-y-3">
-        <button id="toggleBtn" class="text-sm text-blue-400 hover:text-white transition">Create an account</button>
-        <p class="text-xs text-slate-500">Forgot Password?</p>
+        <a href="#" class="text-sm text-slate-400 hover:text-blue-400 transition">Forgot password?</a>
+        <p class="text-sm text-slate-500">New to UPCASH? 
+            <a href="register.html" class="text-blue-500 font-bold hover:underline">Create account</a>
+        </p>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+        <p class="text-slate-600 text-xs mb-3">© UPCASH Business Platform 2026</p>
+        <a href="mailto:support@upcash.com" class="inline-flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-lg text-slate-300 hover:text-blue-400 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            <span class="text-xs">Support</span>
+        </a>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // Initialize Supabase
-    const supabase = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+    const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
+    const form = document.getElementById('signinForm');
     
-    const toggleBtn = document.getElementById('toggleBtn');
-    const formTitle = document.getElementById('formTitle');
-    const mainBtn = document.getElementById('mainBtn');
-    const signupFields = document.getElementById('signupFields');
-    let isLogin = true;
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.innerText = "Signing in...";
+        
+        const { error } = await supabaseClient.auth.signInWithPassword({
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        });
 
-    // Toggle Action
-    toggleBtn.addEventListener('click', () => {
-    isLogin = !isLogin;
-    
-    // 1. Update UI Text
-    formTitle.innerText = isLogin ? "Welcome Back" : "Create Account";
-    mainBtn.innerText = isLogin ? "Sign In" : "Register Now";
-    toggleBtn.innerText = isLogin ? "Create an account" : "Have an account? Login";
-    
-    // 2. FORCED OVERRIDE: Directly set the CSS style
-    // This ignores all classes and forces the element to show or hide
-    if (isLogin) {
-        signupFields.style.setProperty('display', 'none', 'important');
-    } else {
-        signupFields.style.setProperty('display', 'block', 'important');
-    }
-    
-    console.log("Forced toggle executed.");
-});
-
+        if (error) {
+            alert("Sign In Failed: " + error.message);
+            submitBtn.innerText = "Sign In";
+        } else {
+            window.location.href = "dashboard.html"; // Redirect to your app
+        }
+    });
 </script>
 </body>
 </html>
