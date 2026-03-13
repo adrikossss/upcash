@@ -81,6 +81,10 @@
     const supabaseClient = supabase.createClient('https://wbodpfbmilhperccgzei.supabase.co', 'sb_publishable_CTQy3-UTfBu_U8kl3lWLXQ_7Ki4gukN');
     const form = document.getElementById('signupForm'), usernameInput = document.getElementById('username'), feedback = document.getElementById('username-feedback'), pass1 = document.getElementById('password'), pass2 = document.getElementById('confirmPassword'), passFeed = document.getElementById('pass-feedback'), submitBtn = document.getElementById('submitBtn');
     
+    // Capture referrer from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const referrerCode = urlParams.get('ref') || null;
+
     function validateForm() {
         const isUserValid = usernameInput.classList.contains('input-success');
         const isPassMatch = pass1.value !== "" && pass1.value === pass2.value;
@@ -117,10 +121,21 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         submitBtn.innerText = "Registering...";
-        const { error } = await supabaseClient.auth.signUp({ email: document.getElementById('email').value, password: pass1.value, options: { data: { username: usernameInput.value, telephone: document.getElementById('phone').value } } });
+        const { error } = await supabaseClient.auth.signUp({ 
+            email: document.getElementById('email').value, 
+            password: pass1.value, 
+            options: { 
+                data: { 
+                    username: usernameInput.value, 
+                    telephone: document.getElementById('phone').value,
+                    referred_by: referrerCode // Referral link captured here
+                } 
+            } 
+        });
         if(error) { alert(error.message); submitBtn.innerText = "Register Now"; } 
         else { alert("Success! Please verify your email."); form.reset(); }
     });
 </script>
+
 </body>
 </html>
